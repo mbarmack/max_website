@@ -1,0 +1,58 @@
+<!doctype html>
+<title> - Max Barmack</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<section class="content">
+  <header>
+    <div class="name">
+      Max Barmack
+    </div>
+    <nav>
+      <ul class="nav_links">
+        <li><a href="{{ url_for('show_about') }}">About Me</a></li>
+        <li><a href="{{ url_for('show_writing') }}">Writing</a></li>
+      </ul>
+    </nav>
+    <div class="login">
+      {% if logged_in %}
+        <a href="{{ url_for('logout')}}?target={{ url_for('show_about') }}">Logout</a>
+      {% else %}
+        <a href="{{ url_for('show_login') }}?target={{ url_for('show_about') }}">Login</a>
+      {% endif %}
+    </div>
+  </header>
+</section>
+
+<div class="home_main_content">
+  <div class="picture_max">
+    <img src="{{ url_for('static', filename='maxbarmack.jpeg') }}" height="500">
+  </div>
+  <div class="home_text">
+    <div class="home_name">
+      Max Barmack
+    </div>
+    <div class="bio">
+      Hi, I'm Max. I am a senior studying public policy and computer science at the University of Michigan. My interests include foreign policy, coding, and spending time outdoors.
+    </div>
+  </div>
+</div>
+<div class="home-resume">
+  <div class="home-resume-title">
+    My Experience
+  </div>
+  <img src="{{ url_for('static', filename='MaxwellBarmackResume2021.jpg') }}" height="1000">
+</div>
+
+<div class="home-about">
+  <div class="home-about-title">
+    About this website:
+  </div>
+  <div class="home-about-page-info">
+    <div class="about-page-info-text">
+      Frontend: JavaScript React<br>
+      Backend: mySQL and Flask
+    </div>
+    <div class="about-page-info-picture">
+      <img src="{{ url_for('static', filename='website-framework.png') }}" height="250">
+    </div>
+</div>

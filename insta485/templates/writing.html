@@ -1,0 +1,40 @@
+<!doctype html>
+<title> - Max Barmack</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<section class="content">
+  <header>
+    <div class="name">
+      Max Barmack
+    </div>
+    <nav>
+      <ul class="nav_links">
+        <li><a href="{{ url_for('show_about') }}">About Me</a></li>
+        <li><a href="{{ url_for('show_writing') }}">Writing</a></li>
+      </ul>
+    </nav>
+    <div class="login">
+      {% if logged_in %}
+        <a href="{{ url_for('logout')}}?target={{ url_for('show_writing') }}">Logout</a>
+      {% else %}
+        <a href="{{ url_for('show_login') }}?target={{ url_for('show_writing') }}">Login</a>
+      {% endif %}
+    </div>
+  </header>
+</section>
+
+<div class="writing_title">
+  <h1>Writing</h1>
+</div>
+<div class="writing_page_description">
+  <p>I like to write about foreign policy because it helps me learn and think about pressing issues. You may not always agree with me, and I hope you'll leave a comment explaining why.</p>
+</div>
+
+<div id="reactEntryWriting">
+  Loading ...
+</div>
+
+<meta id="my-data" data-page="Writing">
+
+<!-- Load JavaScript -->
+<script id="react" type="text/javascript" data-page="Writing" src="{{ url_for('static', filename='js/bundle.js') }}"></script>

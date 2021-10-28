@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<body>
+    <div class="login-page">
+        <div class="login-title">
+            Login
+        </div>
+        <div class="login-form">
+            <form action="{{ url_for('process_login') }}?target={{target}}" method="post" enctype="multipart/form-data">
+                <div class="login-input-label">
+                    Username
+                </div>
+                <div class="login-input">
+                    <input type="text" name="username" required/>
+                </div>
+                <div class="login-input-label">
+                    Password
+                </div>
+                <div class="login-input">
+                    <input type="password" name="password" required/>
+                </div>
+                <input class="login-button" type="submit" value="Login"/>
+                <input type="hidden" name="operation" value="login"/>
+            </form>
+        </div>
+        <div class="login-create">
+            <a href="{{ url_for('show_create') }}">Create an Account</a>
+        </div>
+    </div>
+</body>
+</html>

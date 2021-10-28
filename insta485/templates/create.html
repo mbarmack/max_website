@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<html lang="en">
+  <div class="create-page">
+    <div class="create-title">
+      Create an account
+    </div>
+    <div class="create-form">
+      <form action="{{ url_for('process_creation', postid=postid) }}" method="post" enctype="multipart/form-data">
+        <div id="reactEntryCreate">
+          Loading ...
+        </div>
+        <input class="login-button" type="submit" name="signup" value="sign up"/>
+        <input type="hidden" name="operation" value="create"/>
+      </form>
+    </div>
+  </div>
+  
+  <meta id="my-data" data-page="Create">
+  
+  <!-- Load JavaScript -->
+  <script id="react" type="text/javascript" data-page="Create" src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+
+</html>

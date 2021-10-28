@@ -1,0 +1,20 @@
+
+<html lang="en">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <body>
+        <form action="{{ url_for('add_post') }}" method="post" enctype="multipart/form-data">
+            Title
+            <input type="text" name="title" required/>
+            Author
+            <input type="text" name="author" required/>
+            <input class="login-button" type="submit" value="Submit"/>
+        </form>
+        <form action="{{ url_for('add_text') }}" method="post" enctype="multipart/form-data">
+            Title
+            <input type="text" name="title" required/>
+            Paragraph
+            <input type="text" name="paragraph" required/>
+            <input class="login-button" type="submit" value="Submit"/>
+        </form>
+    </body>
+    </html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<title> - Max Barmack</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<section class="content">
+  <header>
+    <div class="name">
+      Max Barmack
+    </div>
+    <nav>
+      <ul class="nav_links">
+        <li><a href="{{ url_for('show_about') }}">About Me</a></li>
+        <li><a href="{{ url_for('show_writing') }}">Writing</a></li>
+      </ul>
+    </nav>
+    <div class="login">
+      {% if logged_in %}
+        <a href="{{ url_for('logout')}}?target={{ url_for('show_post', postid=postid) }}">Logout</a>
+      {% else %}
+        <a href="{{ url_for('show_login') }}?target={{ url_for('show_post', postid=postid) }}">Login</a>
+      {% endif %}
+    </div>
+  </header>
+</section>
+
+<meta id="my-data" data-postid="{{postid}}">
+<div class="post_content">
+  <div id="reactEntryPost">
+    Loading ...
+  </div>
+  <!-- Load JavaScript -->
+  <script id="react" type="text/javascript" data-postid={{postid}} src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+</div>
