@@ -11,11 +11,11 @@ usage() {
 }
 
 create() {
-    sqlite3 var/maxbarmack.sqlite3 < sql/schema.sql
+    sqlite3 var/insta485.sqlite3 < sql/schema.sql
 }
 
 destroy() {
-    rm -rf var/maxbarmack.sqlite3
+    rm -rf var/insta485.sqlite3
     echo "rm -rf var/insta485.sqlite3 var/uploads"
 }
 

@@ -10,14 +10,14 @@ set -Eeuo pipefail
 set -x
 
 #create database
-FILE=var/maxbarmack.sqlite3
+FILE=var/insta485.sqlite3
 if [ -f "$FILE" ]; then
 	echo "Database already exists. Skipping create"
 else
 	./bin/maxbarmackdb create
 fi
 
-test -e var/maxbarmack.sqlite3
+test -e var/insta485.sqlite3
 
 #Set FLASK_ENV and FLASK_APP environment variables
 export FLASK_ENV=development
