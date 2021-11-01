@@ -63,7 +63,7 @@ def process_login():
         WHERE username=?", (flask.request.form['username'],)
     )
     db_pw = cur.fetchall()
-    if db_pw is None:
+    if len(db_pw) is 0:
         flask.abort(403)
     db_pw = db_pw[0]['password']
 
