@@ -2,19 +2,30 @@
 <html lang="en">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <body>
-        <form action="{{ url_for('add_post') }}" method="post" enctype="multipart/form-data">
-            Title
-            <input type="text" name="title" required/>
-            Author
-            <input type="text" name="author" required/>
-            <input class="login-button" type="submit" value="Submit"/>
-        </form>
-        <form action="{{ url_for('add_text') }}" method="post" enctype="multipart/form-data">
-            Title
-            <input type="text" name="title" required/>
-            Paragraph
-            <input type="text" name="paragraph" required/>
-            <input class="login-button" type="submit" value="Submit"/>
-        </form>
+        <div class="admin-item">
+            <form action="{{ url_for('add_post') }}" method="post" enctype="multipart/form-data">
+                Title
+                <input type="text" name="title" required/>
+                Author
+                <input type="text" name="author" required/>
+                <input class="login-button" type="submit" value="Submit"/>
+            </form>
+        </div>
+        <div class="admin-item">
+            <form action="{{ url_for('add_text') }}" method="post" enctype="multipart/form-data">
+                Title
+                <input type="text" name="title" required/>
+                Paragraph
+                <input type="text" name="paragraph" required/>
+                <input class="login-button" type="submit" value="Submit"/>
+            </form>
+        </div>
+        <div class="admin-item">
+            <form action="{{ url_for('delete_post_please') }}" method="post" enctype="multipart/form-data">
+                Postid
+                <input type="text" name="postid" required/>
+                <input class="login-button" type="submit" value="Delete"/>
+            </form>
+        </div>
     </body>
-    </html>
+</html>
