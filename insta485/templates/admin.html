@@ -2,6 +2,7 @@
 <html lang="en">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <body>
+        Add Post
         <div class="admin-item">
             <form action="{{ url_for('add_post') }}" method="post" enctype="multipart/form-data">
                 Title
@@ -11,6 +12,7 @@
                 <input class="login-button" type="submit" value="Submit"/>
             </form>
         </div>
+        Add Paragraph
         <div class="admin-item">
             <form action="{{ url_for('add_text') }}" method="post" enctype="multipart/form-data">
                 Title
@@ -20,8 +22,19 @@
                 <input class="login-button" type="submit" value="Submit"/>
             </form>
         </div>
+        Delete Post
         <div class="admin-item">
-            <form action="{{ url_for('delete_post_please') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ url_for('delete_post') }}" method="post" enctype="multipart/form-data">
+                Postid
+                <input type="text" name="postid" required/>
+                <input class="login-button" type="submit" value="Delete"/>
+            </form>
+        </div>
+        Delete Paragraph
+        <div class="admin-item">
+            <form action="{{ url_for('delete_paragraph') }}" method="post" enctype="multipart/form-data">
+                Text
+                <input type="text" name="text" required/>
                 Postid
                 <input type="text" name="postid" required/>
                 <input class="login-button" type="submit" value="Delete"/>

@@ -65,7 +65,7 @@ def add_text():
     return flask.redirect(flask.url_for('show_admin'))
 
 @insta485.app.route('/admin/deletepost/', methods=['POST'])
-def delete_post_please():
+def delete_post():
     if 'username' not in flask.session:
         flask.abort(403)
     if flask.session['username'] != "mbarmack":
@@ -83,6 +83,26 @@ def delete_post_please():
 
     connection.execute(
         "DELETE FROM posts WHERE postid=?", (postid,)
+    )
+
+    return flask.redirect(flask.url_for('show_admin'))
+
+@insta485.app.route('/admin/deleteparagraph/', methods=['POST'])
+def delete_paragraph():
+    if 'username' not in flask.session:
+        flask.abort(403)
+    if flask.session['username'] != "mbarmack":
+        flask.abort(403)
+
+    connection = insta485.model.get_db()
+    text = flask.request.form['text']
+    postid = flask.request.form['postid']
+
+    if len(text) is 0:
+        flask.abort(406)
+
+    connection.execute(
+        "DELETE FROM paragraphs WHERE paragraph=? AND postid=?", (text, postid)
     )
 
     return flask.redirect(flask.url_for('show_admin'))
