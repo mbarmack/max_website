@@ -60,7 +60,7 @@ def process_login():
     cur = connection.execute(
         "SELECT password \
         FROM users \
-        WHERE username=?", (flask.request.form['username'],)
+        WHERE username=?", (flask.request.form['username'].lower(),)
     )
     db_pw = cur.fetchall()
     if len(db_pw) is 0:
@@ -78,18 +78,10 @@ def process_login():
     if itemized_db_pw[2] != password_hash:
         flask.abort(403)
 
-    cur = connection.execute(
-        "SELECT username \
-            FROM users \
-            WHERE username=?", (flask.request.form['username'],)
-    )
-    users = cur.fetchall()
-    for user in users:
-        if flask.request.form['username'] == user['username']:
-            flask.session['username'] = flask.request.form['username']
-            flask.session['password'] = db_pw
-            return flask.redirect(target)
-    flask.abort(403)
+    
+    flask.session['username'] = flask.request.form['username'].lower()
+    flask.session['password'] = db_pw
+    return flask.redirect(target)
 
 @insta485.app.route('/accounts/create/', methods=['POST'])
 def process_creation():
@@ -99,7 +91,7 @@ def process_creation():
     
     connection = insta485.model.get_db()
 
-    username = flask.request.form['username']
+    username = flask.request.form['username'].lower()
     password = flask.request.form['password']
     password_confirm = flask.request.form['password2']
 
