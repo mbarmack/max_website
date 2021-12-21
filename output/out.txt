@@ -1,0 +1,526 @@
+{
+  "updated": "21/12/2021 10:55:09",
+  "data": {
+    "russia": [
+      {
+        "author": "REUTERS",
+        "id": "1473363976251752453",
+        "text": "Russia fires cruise missile from Sea of Japan in test exercise -media https://t.co/ZB1POTPyRW https://t.co/oaCaeSRfRU",
+        "retweets": 39
+      },
+      {
+        "author": "MOSCOW_TIMES",
+        "id": "1473332416211308554",
+        "text": "Russia has\u00a0passed\u00a0legislation granting police the right to break into homes and cars without a search warrant https://t.co/5AdRa6QXjD",
+        "retweets": 16
+      },
+      {
+        "author": "MOSCOW_TIMES",
+        "id": "1473280410562015234",
+        "text": "Russia has detected 41 cases of the Omicron variant of Covid-19 so far, health authorities said Tuesday\nhttps://t.co/IVOZNsKEVk",
+        "retweets": 7
+      },
+      {
+        "author": "MOSCOW_TIMES",
+        "id": "1473309493802975240",
+        "text": "European and U.K. gas prices rocketed Tuesday to all-time highs on strong winter demand and simmering geopolitical tensions between key supplier Russia and consumer nations\nhttps://t.co/vbTpXqi06M",
+        "retweets": 6
+      },
+      {
+        "author": "MOSCOW_TIMES",
+        "id": "1473300214949810187",
+        "text": "The first Russian businessman to be convicted in the U.S. for violating sanctions has returned to Russia after being deported\nhttps://t.co/aFIBRTSVOG",
+        "retweets": 5
+      },
+      {
+        "author": "FOREIGN_POLICY",
+        "id": "1473322392822992910",
+        "text": "The United States has the capacity to compete and win the day-to-day competition with China and Russia while deterring lesser adversaries. https://t.co/FIaM6bXX06",
+        "retweets": 3
+      },
+      {
+        "author": "FREEDOMHOUSE",
+        "id": "1473017400698281984",
+        "text": "The recent ECtHR ruling found Russia responsible for the unlawful abduction and killing of 5 residents of Chechnya in 2017. @novaya_gazeta's brave reporting prompted the investigation after domestic courts failed to initiate a criminal case. https://t.co/l220kGlTsm",
+        "retweets": 1
+      }
+    ],
+    "united states of america": [
+      {
+        "author": "AL_JAZEERA",
+        "id": "1473342887756808194",
+        "text": "RT @AJListeningPost: \u201cYou\u2019re handing over a political prisoner to his executioners.\u201d\n\n@TariqAli_News &amp; @NilsMelzer talked us through the la\u2026",
+        "retweets": 63
+      },
+      {
+        "author": "FOREIGN_POLICY",
+        "id": "1473337718964989958",
+        "text": "No other developed country besides the United States puts wealthy donors in ambassador posts. https://t.co/i7NgWHoxXR",
+        "retweets": 15
+      },
+      {
+        "author": "THE_ECONOMIST",
+        "id": "1473361147340500994",
+        "text": "\u201cThe more \u2018ordinary\u2019 people think they are, the more interesting their experience to us\u201d. How David Pocock captured a changing society  https://t.co/pFvd9Qu5xn",
+        "retweets": 11
+      },
+      {
+        "author": "USA_TODAY",
+        "id": "1473338336328794116",
+        "text": "RT @realjohnbacon: Fauci says go ahead and enjoy the holidays with vaxxed family and friends. US population growth at record low. Biden's o\u2026",
+        "retweets": 6
+      },
+      {
+        "author": "FOREIGN_POLICY",
+        "id": "1473322392822992910",
+        "text": "The United States has the capacity to compete and win the day-to-day competition with China and Russia while deterring lesser adversaries. https://t.co/FIaM6bXX06",
+        "retweets": 3
+      },
+      {
+        "author": "FREEDOMHOUSE",
+        "id": "1473344031543500811",
+        "text": "RT @EGFound: Prior to this month's #democracysummit, @freedomhouse president Michael @abramowitz joined us to discuss the summit's opportun\u2026",
+        "retweets": 3
+      }
+    ],
+    "united kingdom": [
+      {
+        "author": "BBCWORLD",
+        "id": "1473362645709475854",
+        "text": "UK Supreme Court denies Maduro claim to Venezuelan gold https://t.co/dsXgAHBFx4",
+        "retweets": 25
+      },
+      {
+        "author": "AL_JAZEERA",
+        "id": "1473361905091817484",
+        "text": "Dubai\u2019s ruler Sheikh Mohammed bin Rashid Al Maktoum ordered to provide his estranged wife estranged wife Princess Haya Bint Al Hussein at least 554 million pounds ($734 million) in the largest financial award the UK family courts have ever seen \u2935\ufe0f https://t.co/BDen8pPLZC",
+        "retweets": 17
+      },
+      {
+        "author": "FT",
+        "id": "1473355652114403330",
+        "text": "UK\u2019s first gaming addiction centre swamped by demand during pandemic https://t.co/uOrVyhOq3E",
+        "retweets": 6
+      },
+      {
+        "author": "FT",
+        "id": "1473350542596493313",
+        "text": "City veteran Jan du Plessis nominated to lead UK accounting regulator https://t.co/a7yKdnp2VC",
+        "retweets": 1
+      }
+    ],
+    "denmark": [
+      {
+        "author": "AFP",
+        "id": "1473353574356815879",
+        "text": "Denmark's parliament voted to expel former migration minister Inger Stojberg, who was convicted last week of violating migrants' rights by separating asylum-seeking couples.\n\nShe is the first parliamentarian to be kicked out in 30 years https://t.co/dmO3LLzExo",
+        "retweets": 39
+      },
+      {
+        "author": "BBCWORLD",
+        "id": "1473363146459000835",
+        "text": "Kosovo agrees to rent prison cells to Denmark to ease overcrowding https://t.co/lr8Kke3LSA",
+        "retweets": 25
+      },
+      {
+        "author": "REUTERS",
+        "id": "1473366498144043013",
+        "text": "Omicron dominant in Denmark as daily infections reach new record https://t.co/6bxqYMCWqi https://t.co/eqLPDNACLq",
+        "retweets": 3
+      }
+    ],
+    "ethiopia": [
+      {
+        "author": "BUSINESS",
+        "id": "1473365669492232201",
+        "text": "Millions of people in Kenya, Ethiopia and Somalia are in dire need of humanitarian assistance thanks to a drought that\u2019s killed hundreds of thousands of cattle and damaged crops https://t.co/GM7MGp29DG",
+        "retweets": 11
+      },
+      {
+        "author": "FT",
+        "id": "1473366451138478086",
+        "text": "Ethiopia is a tragedy for the whole of Africa https://t.co/4oafApdGmS  | opinion",
+        "retweets": 8
+      },
+      {
+        "author": "CFR",
+        "id": "1473325797893156870",
+        "text": "The Taliban returned to power, \"supply chains\" became a household name, Ethiopia's war worsened: here are the stories that shaped 2021. https://t.co/SkalM6TTqj",
+        "retweets": 2
+      }
+    ],
+    "taiwan": [
+      {
+        "author": "CFR",
+        "id": "1473338058925879296",
+        "text": "Get the background on Taiwan's political status, the U.S. relationship with Taiwan, and why China-Taiwan ties may be reaching a tipping point. https://t.co/QkDQGhohtA",
+        "retweets": 1
+      }
+    ],
+    "afghanistan": [
+      {
+        "author": "AL_JAZEERA",
+        "id": "1473334589775040518",
+        "text": "Afghanistan is estimated to hold more than 2.2 billion tonnes of iron ore, 1.3 billion tonnes of marble and 1.4 million tonnes of rare earth minerals.\n\nMapping Afghanistan\u2019s untapped natural resources https://t.co/FbWuSmfhgM https://t.co/PJDSg3yQWi",
+        "retweets": 79
+      }
+    ],
+    "china": [
+      {
+        "author": "FOREIGN_POLICY",
+        "id": "1473322392822992910",
+        "text": "The United States has the capacity to compete and win the day-to-day competition with China and Russia while deterring lesser adversaries. https://t.co/FIaM6bXX06",
+        "retweets": 3
+      },
+      {
+        "author": "CFR",
+        "id": "1473338058925879296",
+        "text": "Get the background on Taiwan's political status, the U.S. relationship with Taiwan, and why China-Taiwan ties may be reaching a tipping point. https://t.co/QkDQGhohtA",
+        "retweets": 1
+      }
+    ],
+    "portugal": [
+      {
+        "author": "AP",
+        "id": "1473359281458188290",
+        "text": "RT @AP_Europe: Portugal is renewing restrictions, including closing bars and discos and making it mandatory to work from home, fearing the\u2026",
+        "retweets": 35
+      },
+      {
+        "author": "REUTERS",
+        "id": "1473365228868050950",
+        "text": "Portugal imposes post-Christmas COVID-19 curbs as Omicron cases surge https://t.co/jdIaVr6Ktp https://t.co/CQAjGWPEiH",
+        "retweets": 13
+      }
+    ],
+    "brazil": [
+      {
+        "author": "BEN_RHODES",
+        "id": "1472701855180406786",
+        "text": "Latin America continues a clear turn to the left with Brazil up next (and Biden continuing Trump's failed hardline policies on Cuba and Venezuela). https://t.co/LgvQvODF0h",
+        "retweets": 57
+      }
+    ],
+    "chile": [
+      {
+        "author": "BEN_RHODES",
+        "id": "1472800478912073728",
+        "text": "RT @PopulismUpdates: Outright leftists won in Peru, Honduras and Chile this year",
+        "retweets": 160
+      }
+    ],
+    "cuba": [
+      {
+        "author": "BEN_RHODES",
+        "id": "1472701855180406786",
+        "text": "Latin America continues a clear turn to the left with Brazil up next (and Biden continuing Trump's failed hardline policies on Cuba and Venezuela). https://t.co/LgvQvODF0h",
+        "retweets": 57
+      }
+    ],
+    "georgia": [
+      {
+        "author": "FOX_NEWS",
+        "id": "1473366095444725778",
+        "text": "Georgia man freed after 23 years in prison for wrongful Taco Bell murder conviction https://t.co/VzM2nGJjg3",
+        "retweets": 20
+      }
+    ],
+    "germany": [
+      {
+        "author": "AFP",
+        "id": "1473351332358721542",
+        "text": "#BREAKING Germany to ban spectators from large sporting events from Dec 28, says Scholz https://t.co/PdYq307mmt",
+        "retweets": 31
+      }
+    ],
+    "haiti": [
+      {
+        "author": "THE_INDEPENDENT",
+        "id": "1473365987974168577",
+        "text": "Haiti missionaries made dramatic night-time escape from kidnappers https://t.co/a9QLL9xKdN",
+        "retweets": 6
+      }
+    ],
+    "honduras": [
+      {
+        "author": "BEN_RHODES",
+        "id": "1472800478912073728",
+        "text": "RT @PopulismUpdates: Outright leftists won in Peru, Honduras and Chile this year",
+        "retweets": 160
+      }
+    ],
+    "hungary": [
+      {
+        "author": "FOREIGN_POLICY",
+        "id": "1473352568411770881",
+        "text": "Hungary\u2019s United Opposition is almost neck and neck with Fidesz, according to a Politico poll. https://t.co/rxlkT4LMX7",
+        "retweets": 0
+      }
+    ],
+    "iran": [
+      {
+        "author": "SCMPNEWS",
+        "id": "1473360120352497669",
+        "text": "A 122-year-old woman living in Iran may be the oldest living person in the world. Fatemeh Norouzi Karizi says she was born over a century ago on September 23, 1899. https://t.co/ciNbL6bUAa",
+        "retweets": 5
+      }
+    ],
+    "japan": [
+      {
+        "author": "REUTERS",
+        "id": "1473363976251752453",
+        "text": "Russia fires cruise missile from Sea of Japan in test exercise -media https://t.co/ZB1POTPyRW https://t.co/oaCaeSRfRU",
+        "retweets": 39
+      }
+    ],
+    "kenya": [
+      {
+        "author": "BUSINESS",
+        "id": "1473365669492232201",
+        "text": "Millions of people in Kenya, Ethiopia and Somalia are in dire need of humanitarian assistance thanks to a drought that\u2019s killed hundreds of thousands of cattle and damaged crops https://t.co/GM7MGp29DG",
+        "retweets": 11
+      }
+    ],
+    "kosovo": [
+      {
+        "author": "BBCWORLD",
+        "id": "1473363146459000835",
+        "text": "Kosovo agrees to rent prison cells to Denmark to ease overcrowding https://t.co/lr8Kke3LSA",
+        "retweets": 25
+      }
+    ],
+    "libya": [
+      {
+        "author": "AFP",
+        "id": "1473364395103174661",
+        "text": "Armed groups deployed in the suburbs of Libya's capital, sparking security fears ahead of an expected delay of presidential elections, as three key candidates met in the country's east https://t.co/bNze6jlldi",
+        "retweets": 5
+      }
+    ],
+    "peru": [
+      {
+        "author": "BEN_RHODES",
+        "id": "1472800478912073728",
+        "text": "RT @PopulismUpdates: Outright leftists won in Peru, Honduras and Chile this year",
+        "retweets": 160
+      }
+    ],
+    "philippines": [
+      {
+        "author": "INDIA_TIMES",
+        "id": "1472873340444372995",
+        "text": "The death toll from the strongest typhoon hitting the Philippines in 2021 has jumped to 208\n\nhttps://t.co/MGBJw5U6OC",
+        "retweets": 0
+      }
+    ],
+    "somalia": [
+      {
+        "author": "BUSINESS",
+        "id": "1473365669492232201",
+        "text": "Millions of people in Kenya, Ethiopia and Somalia are in dire need of humanitarian assistance thanks to a drought that\u2019s killed hundreds of thousands of cattle and damaged crops https://t.co/GM7MGp29DG",
+        "retweets": 11
+      }
+    ],
+    "south africa": [
+      {
+        "author": "FOREIGN_POLICY",
+        "id": "1473334997750853634",
+        "text": "Sponsored: South Africa is driven by pride, a commitment to equality, and economic opportunity for all. A growing hub of investment and tourism, @Brand_SA tells the story of transformation and opportunity. Visit https://t.co/c9OW1qw0cD for more. https://t.co/jRUSNGSstH",
+        "retweets": 3
+      }
+    ],
+    "turkey": [
+      {
+        "author": "FREEDOMHOUSE",
+        "id": "1473331430927351815",
+        "text": "Our latest @freedomonthenet report, which analyzes internet freedom worldwide, labeled Turkey as Not Free, \"noting widespread filtering or removal of online content that was critical of the government.\" --@linzasaur for @BusinessInsider https://t.co/XG41K3Cpvc",
+        "retweets": 4
+      }
+    ],
+    "united arab emirates": [
+      {
+        "author": "AL_JAZEERA",
+        "id": "1473350829860139017",
+        "text": "UAE agency placed spyware on phone of Jamal Khashoggi\u2019s fiancee, Hanan Elatr, reports The Washington Post https://t.co/OlF2axVk7O https://t.co/PVPI0RrQ07",
+        "retweets": 49
+      }
+    ],
+    "venezuela": [
+      {
+        "author": "BEN_RHODES",
+        "id": "1472701855180406786",
+        "text": "Latin America continues a clear turn to the left with Brazil up next (and Biden continuing Trump's failed hardline policies on Cuba and Venezuela). https://t.co/LgvQvODF0h",
+        "retweets": 57
+      }
+    ],
+    "albania": [],
+    "algeria": [],
+    "andorra": [],
+    "angola": [],
+    "antigua and barbuda": [],
+    "argentina": [],
+    "armenia": [],
+    "australia": [],
+    "austria": [],
+    "azerbaijan": [],
+    "bahamas": [],
+    "bahrain": [],
+    "bangladesh": [],
+    "barbados": [],
+    "belarus": [],
+    "belgium": [],
+    "belize": [],
+    "benin": [],
+    "bhutan": [],
+    "bolivia": [],
+    "bosnia and herzegovina": [],
+    "botswana": [],
+    "brunei": [],
+    "bulgaria": [],
+    "burkina faso": [],
+    "burundi": [],
+    "cabo verde": [],
+    "cambodia": [],
+    "cameroon": [],
+    "canada": [],
+    "central african republic": [],
+    "chad": [],
+    "colombia": [],
+    "comoros": [],
+    "democratic republic of the congo": [],
+    "republic of the congo": [],
+    "congo": [],
+    "costa rica": [],
+    "cote d ivoire": [],
+    "croatia": [],
+    "cyprus": [],
+    "czechia": [],
+    "djibouti": [],
+    "dominica": [],
+    "dominican republic": [],
+    "ecuador": [],
+    "egypt": [],
+    "el salvador": [],
+    "equatorial guinea": [],
+    "eritrea": [],
+    "estonia": [],
+    "eswatini": [],
+    "fiji": [],
+    "finland": [],
+    "france": [],
+    "gabon": [],
+    "gambia": [],
+    "ghana": [],
+    "greece": [],
+    "grenada": [],
+    "guatemala": [],
+    "guinea": [],
+    "guinea bissau": [],
+    "guyana": [],
+    "iceland": [],
+    "india": [],
+    "indonesia": [],
+    "iraq": [],
+    "ireland": [],
+    "israel": [],
+    "italy": [],
+    "jamaica": [],
+    "jordan": [],
+    "kazakhstan": [],
+    "kiribati": [],
+    "kuwait": [],
+    "kyrgyzstan": [],
+    "laos": [],
+    "latvia": [],
+    "lebanon": [],
+    "lesotho": [],
+    "liberia": [],
+    "liechtenstein": [],
+    "lithuania": [],
+    "luxembourg": [],
+    "madagascar": [],
+    "malawi": [],
+    "malaysia": [],
+    "maldives": [],
+    "mali": [],
+    "malta": [],
+    "marshall islands": [],
+    "mauritania": [],
+    "mauritius": [],
+    "mexico": [],
+    "micronesia": [],
+    "moldova": [],
+    "monaco": [],
+    "mongolia": [],
+    "montenegro": [],
+    "morocco": [],
+    "mozambique": [],
+    "myanmar": [],
+    "namibia": [],
+    "nauru": [],
+    "nepal": [],
+    "netherlands": [],
+    "new zealand": [],
+    "nicaragua": [],
+    "niger": [],
+    "nigeria": [],
+    "north korea": [],
+    "north macedonia": [],
+    "norway": [],
+    "oman": [],
+    "pakistan": [],
+    "palau": [],
+    "palestine": [],
+    "panama": [],
+    "papua new guinea": [],
+    "paraguay": [],
+    "poland": [],
+    "qatar": [],
+    "romania": [],
+    "rwanda": [],
+    "saint kitts and nevis": [],
+    "saint lucia": [],
+    "saint vincent and the grenadines": [],
+    "samoa": [],
+    "san marino": [],
+    "sao tome and principe": [],
+    "saudi arabia": [],
+    "senegal": [],
+    "serbia": [],
+    "seychelles": [],
+    "sierra leone": [],
+    "singapore": [],
+    "slovakia": [],
+    "slovenia": [],
+    "solomon islands": [],
+    "south korea": [],
+    "south sudan": [],
+    "spain": [],
+    "sri lanka": [],
+    "sudan": [],
+    "suriname": [],
+    "sweden": [],
+    "switzerland": [],
+    "syria": [],
+    "tajikistan": [],
+    "tanzania": [],
+    "thailand": [],
+    "timor leste": [],
+    "togo": [],
+    "tonga": [],
+    "trinidad and tobago": [],
+    "tunisia": [],
+    "turkmenistan": [],
+    "tuvalu": [],
+    "uganda": [],
+    "ukraine": [],
+    "uruguay": [],
+    "uzbekistan": [],
+    "vanuatu": [],
+    "vatican city": [],
+    "vietnam": [],
+    "yemen": [],
+    "zambia": [],
+    "zimbabwe": []
+  }
+}

@@ -1,0 +1,67 @@
+.home_main_content {
+	margin-top: 150px;
+	padding-top: 50px;
+	display: flex;
+	justify-content: space-between;
+	padding-right: 150px;
+}
+
+.home_name {
+	padding-top: 100px;
+	padding-left: 10px;
+	font-family:Georgia, 'Times New Roman', Times, serif;
+	font-size: 80px;
+}
+
+.bio {
+	width: 500px;
+	padding-left: 10px;
+	font-family:Georgia, 'Times New Roman', Times, serif;
+	font-size: 20px;
+	padding-top: 50px;
+}
+
+.resume {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.home-resume {
+	padding-top: 100px;
+	width:max-content;
+	margin:auto;
+}
+
+.home-resume-title {
+	font-family:Georgia, 'Times New Roman', Times, serif;
+	font-size: 60px;
+	padding-bottom: 50px;
+	width:max-content;
+	margin:auto;
+}
+
+.home-about {
+	padding-top: 100px;
+	width:max-content;
+	margin:auto;
+	padding-bottom: 100px;
+}
+.home-about-title {
+	font-family:Georgia, 'Times New Roman', Times, serif;
+	font-size: 60px;
+	padding-bottom: 150px;
+	width:max-content;
+	margin:auto;
+}
+
+.home-about-page-info {
+	display: flex;
+	justify-content: space-between;
+}
+
+.about-page-info-text {
+	padding-top: 100px;
+	font-family:Georgia, 'Times New Roman', Times, serif;
+	font-size: 30px;
+	padding-right: 100px;
+}

@@ -1,0 +1,40 @@
+.country-title {
+    font-family:Georgia, 'Times New Roman', Times, serif;
+	font-size: xx-large;
+    padding-top: 120px;
+    padding-bottom: 40px;
+    text-align: center;
+}
+
+.tweet {
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 25px;
+    padding: 20px;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tweet-link {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+	font-size: large;
+    padding-bottom: 10px;
+}
+
+.tweet-link:hover {
+    text-decoration: underline;
+}
+
+.tweet-text {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: medium;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 10px
+}
+
+.tweet-retweets {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: medium;
+}

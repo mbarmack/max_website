@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>- Max Barmack</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/world_style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/nav_style.css') }}">
+</head>
+<body>
+    <div class="header">
+        <div class="name">
+            Max Barmack
+        </div>
+        <nav>
+        <ul class="nav_links">
+            <li><a href="{{ url_for('show_about') }}">About Me</a></li>
+            <li><a href="{{ url_for('show_writing') }}">Writing</a></li>
+            <li><a href="{{ url_for('show_world') }}">World News</a></li>
+        </ul>
+        </nav>
+        <div class="login">
+            {% if logged_in %}
+                <a href="{{ url_for('logout')}}?target={{ url_for('show_world') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('show_login') }}?target={{ url_for('show_world') }}">Login</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="description">
+        Using Twitter's API, this page tracks which countries are in the news today
+    </div>
+    <div class="list">
+        <div class="updated">
+            Last updated: {{updated}}
+        </div>
+        <ol>
+            {% for country in country_data %}
+                <div class="list-item">
+                    <li>
+                        <span class="country-link">
+                            <a href="{{ url_for('show_country', country=country) }}">{{country}}</a>
+                        </span>
+                        <span class="country-info">
+                            : {{country_data[country]}}
+                        </span>
+                    </li> 
+                </div>
+            {% endfor %}
+        </ol>
+    </div>
+</body>
+</html>

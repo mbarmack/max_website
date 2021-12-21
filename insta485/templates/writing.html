@@ -1,31 +1,29 @@
 <!doctype html>
 <title> - Max Barmack</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/nav_style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/writing_style.css') }}">
 
-<section class="content">
-  <header>
-    <div class="name">
+<div class="header">
+  <div class="name">
       Max Barmack
-    </div>
-    <nav>
-      <ul class="nav_links">
-        <li><a href="{{ url_for('show_about') }}">About Me</a></li>
-        <li><a href="{{ url_for('show_writing') }}">Writing</a></li>
-      </ul>
-    </nav>
-    <div class="login">
+  </div>
+  <nav>
+  <ul class="nav_links">
+      <li><a href="{{ url_for('show_about') }}">About Me</a></li>
+      <li><a href="{{ url_for('show_writing') }}">Writing</a></li>
+      <li><a href="{{ url_for('show_world') }}">World News</a></li>
+  </ul>
+  </nav>
+  <div class="login">
       {% if logged_in %}
-        <a href="{{ url_for('logout')}}?target={{ url_for('show_writing') }}">Logout</a>
+          <a href="{{ url_for('logout')}}?target={{ url_for('show_writing') }}">Logout</a>
       {% else %}
-        <a href="{{ url_for('show_login') }}?target={{ url_for('show_writing') }}">Login</a>
+          <a href="{{ url_for('show_login') }}?target={{ url_for('show_writing') }}">Login</a>
       {% endif %}
-    </div>
-  </header>
-</section>
-
-<div class="writing_title">
-  <h1>Writing</h1>
+  </div>
 </div>
+
 <div class="writing_page_description">
   <p>I like to write about foreign policy because it helps me learn and think about pressing issues. You may not always agree with me, and I hope you'll leave a comment explaining why.</p>
 </div>

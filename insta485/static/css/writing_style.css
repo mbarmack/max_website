@@ -1,0 +1,31 @@
+.writing_page_description {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-size: large;
+	text-align: center;
+	width: 100%;
+	margin:auto;
+	padding-top: 120px;
+    padding-left: 30px;
+    padding-bottom: 30px;
+    padding-right: 30px;
+}
+
+.post {
+	margin-top: 150px;
+}
+.writing_posts {
+	padding: 30px;
+}
+
+.writing_post {
+	padding: 10px;
+}
+
+.writing_post a {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-weight: bold;
+}
+
+.writing_post a:hover {
+	text-decoration: underline;
+}
