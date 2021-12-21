@@ -157,7 +157,9 @@ def main():
         clean_duplicates('usa', 'united states of america')
         clean_duplicates('us', 'united states of america')
 
-        sort = sort_countries(tweet_info)
+        sorted_countries = sorted(tweet_info.items(), key= lambda x: len(x[1]), reverse=True)
+
+        sort = sort_countries(sorted_countries)
 
         sorted_countries = sorted(sort.items(), key= lambda x: len(x[1]), reverse=True)
 
