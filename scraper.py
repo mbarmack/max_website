@@ -98,7 +98,6 @@ def sort_countries(sorted_countries):
     """Sort tweets in country by retweets. Remove duplicates."""
     sort = {}
     for country in sorted_countries:
-        print(country)
         s_country = sorted(country[1], key=lambda d: d['retweets'], reverse=True)
         deduplicated = []
         for item in s_country:
@@ -161,14 +160,12 @@ def main():
 
         sort = sort_countries(sorted_countries)
 
-        sorted_countries = sorted(sort.items(), key= lambda x: len(x[1]), reverse=True)
-
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 
         output = {
             'updated': dt_string,
-            'data': sorted_countries
+            'data': sort
         }
 
         out_path = pathlib.Path('output/out.txt')
