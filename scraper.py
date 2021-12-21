@@ -2,7 +2,6 @@
 
 """Scrapes Twitter for mentions of countries."""
 
-import requests
 import pathlib
 import re
 import json
@@ -98,6 +97,7 @@ def sort_countries(sorted_countries):
     """Sort tweets in country by retweets. Remove duplicates."""
     sort = {}
     for country in sorted_countries:
+        print(country)
         s_country = sorted(country[1], key=lambda d: d['retweets'], reverse=True)
         deduplicated = []
         for item in s_country:
@@ -165,7 +165,7 @@ def main():
 
         output = {
             'updated': dt_string,
-            'data': sort
+            'data': sorted_countries
         }
 
         out_path = pathlib.Path('output/out.txt')
