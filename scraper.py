@@ -2,6 +2,7 @@
 
 """Scrapes Twitter for mentions of countries."""
 
+import requests
 import pathlib
 import re
 import json
