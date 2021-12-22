@@ -43,12 +43,19 @@ def load_info():
     country_names_path = pathlib.Path('country_names.txt')
     with country_names_path.open('r', encoding='utf-8') as country_file:
         for line in country_file:
-            clean_line = clean_text(line)
-            split = clean_line.split()
+            names = []
+            for name in line.split(','):
+                clean_name = clean_text(name)
+                split = clean_name.split()
+                names.append(split)
 
-            tweet_info[clean_line] = []
+            primary_name = ' '.join(names[0])
+            primary_name.rstrip()
+
+            tweet_info[primary_name] = []
             
-            countries.append(split)
+            countries.append(names)
+
 
 def query_tweets(author, uid, results, i):
     """Query recent tweets from a specific user."""
@@ -84,41 +91,31 @@ def country_name_search(tweet):
 
     for t_index, t_word in enumerate(split_tweet):
         for country in countries:
-            found = True
-            for c_index, c_word in enumerate(country):
-                if (t_index + c_index) < len(split_tweet):
-                    if split_tweet[t_index + c_index] != c_word:
+            primary_name = ' '.join(country[0])
+            primary_name.rstrip()
+            for name in country:
+                found = True
+                for c_index, c_word in enumerate(name):
+                    if (t_index + c_index) < len(split_tweet):
+                        if split_tweet[t_index + c_index] != c_word:
+                            found = False
+                    else:
                         found = False
-                else:
-                    found = False
-            if found:
-                tweet_info[' '.join(country)].append(tweet)
+                if found and tweet not in tweet_info[primary_name]:
+                    tweet_info[primary_name].append(tweet)
 
-def sort_countries(sorted_countries):
-    """Sort tweets in country by retweets. Remove duplicates."""
+
+def sort_countries(tweet_info):
+    """Sort tweets in country by retweets."""
     sort = {}
-    for country in sorted_countries:
-        s_country = sorted(country[1], key=lambda d: d['retweets'], reverse=True)
-        deduplicated = []
-        for item in s_country:
-            found = False
-            for item_2 in deduplicated:
-                if item['text'] == item_2['text']:
-                    found = True
-            if not found:
-                deduplicated.append(item)
-
-        sort[country[0]] = deduplicated
+    for country in tweet_info:
+        if tweet_info[country]:
+            s_country = sorted(tweet_info[country], key=lambda d: d['retweets'], reverse=True)
+        else:
+            s_country = []
+        sort[country] = s_country
     
     return sort
-
-
-def clean_duplicates(name1, name2):
-    """Clean duplicate country names."""
-    if tweet_info[name1]:
-        for tweet in tweet_info[name1]:
-            tweet_info[name2].append(tweet)
-    tweet_info.pop(name1)
 
 
 def main():
@@ -148,24 +145,22 @@ def main():
 
         for tweet in tweets:
             country_name_search(tweet)
-        
-        # Account for countries with multiple "names"
-        clean_duplicates('uae', 'united arab emirates')
-        clean_duplicates('uk', 'united kingdom')
-        clean_duplicates('united states', 'united states of america')
-        clean_duplicates('usa', 'united states of america')
-        clean_duplicates('us', 'united states of america')
 
-        sorted_countries = sorted(tweet_info.items(), key= lambda x: len(x[1]), reverse=True)
+        sorted_countries = sort_countries(tweet_info)
 
-        sort = sort_countries(sorted_countries)
+        sort = sorted(sorted_countries.items(), key=lambda x: len(x[1]), reverse=True)
+
+
+        out_data = {}
+        for country in sort:
+            out_data[country[0]] = country[1]
 
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 
         output = {
             'updated': dt_string,
-            'data': sort
+            'data': out_data
         }
 
         out_path = pathlib.Path('output/out.txt')
