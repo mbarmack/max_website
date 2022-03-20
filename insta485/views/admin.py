@@ -102,13 +102,15 @@ def add_cit():
     cit = flask.request.form['cit']
 
     citations = cit.split('\n')
-
     strip = []
 
     for cit in citations:
+        stripped = cit
         if "\r" in cit:
             stripped = cit[:-1]
         strip.append(stripped)
+
+        print(strip)
 
     connection = insta485.model.get_db()
 
