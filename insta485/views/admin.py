@@ -64,6 +64,32 @@ def add_text():
 
     return flask.redirect(flask.url_for('show_admin'))
 
+@insta485.app.route('/admin/quote', methods=['POST'])
+def add_quote():
+    if 'username' not in flask.session:
+        flask.abort(403)
+    if flask.session['username'] != "mbarmack":
+        flask.abort(403)
+
+    title = flask.request.form['title']
+    quote = flask.request.form['quote']
+
+    connection = insta485.model.get_db()
+
+    cur = connection.execute(
+        "SELECT postid FROM posts WHERE title=?", (title,)
+    )
+    postid = cur.fetchall()[0]['postid']
+
+    cur = connection.execute(
+        "INSERT INTO quotes (quote, postid)\
+         VALUES (?, ?)", (quote, postid)
+    )
+
+    connection.commit()
+
+    return flask.redirect(flask.url_for('show_admin'))
+
 @insta485.app.route('/admin/deletepost/', methods=['POST'])
 def delete_post():
     if 'username' not in flask.session:

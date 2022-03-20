@@ -68,6 +68,7 @@ class Page extends React.Component {
                     isLoaded: true,
                     logged_in: result.logged_in,
                     postid: result.postid,
+                    quote: result.quote,
                     title: result.title
                 });
                 },
@@ -80,7 +81,7 @@ class Page extends React.Component {
             )
     }
     render() {
-      const {author, body, comments, created, logged_in, title} = this.state
+      const {author, body, comments, created, logged_in, quote, title} = this.state
       const commentList = comments.map((comment) => 
         <Comment
             key={comment.commentid.toString()}
@@ -98,29 +99,60 @@ class Page extends React.Component {
             <p>{paragraph.paragraph}</p>
         </div>
       );
-      return (
-          <div className="post">
-              <div className="title">
-                <h1>{title}</h1>
-              </div>
-              <div className="author">
-                <h3>By {author}</h3>
-              </div>
-              <div className="created">
-                <p>{created}</p>
-              </div>
-              <div className="body">
-                {paragraphs}
-              </div>
-              <div className="comment-section">
-                <CommentForm
-                    logged_in={logged_in}
-                    handleCreateComment={this.handleCreateComment.bind(this)}
-                />
-                {commentList}
-              </div>
-          </div>
-          );
+      if (quote == "") {
+        return (
+            <div className="post">
+                <div className="title">
+                  <h1>{title}</h1>
+                </div>
+                <div className="author">
+                  <h3>By {author}</h3>
+                </div>
+                <div className="created">
+                  <p>{created}</p>
+                </div>
+                <div className="body">
+                  {paragraphs}
+                </div>
+                <div className="comment-section">
+                  <CommentForm
+                      logged_in={logged_in}
+                      handleCreateComment={this.handleCreateComment.bind(this)}
+                  />
+                  {commentList}
+                </div>
+            </div>
+        );
+       }
+       else {
+        return (
+            <div className="post">
+                <div className="title">
+                  <h1>{title}</h1>
+                </div>
+                <div className="author">
+                  <h3>By {author}</h3>
+                </div>
+                <div className="created">
+                  <p>{created}</p>
+                </div>
+                <div className="quote">
+                   <p>{quote}</p>
+               </div>
+                <div className="body">
+                  {paragraphs}
+                </div>
+                <div className="comment-section">
+                  <CommentForm
+                      logged_in={logged_in}
+                      handleCreateComment={this.handleCreateComment.bind(this)}
+                  />
+                  {commentList}
+                </div>
+            </div>
+        );
+       } 
+      
       }
   }
 

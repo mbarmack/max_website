@@ -238,3 +238,12 @@ a {
 	  padding-bottom: 4px;
 	  color:crimson; 
   }
+
+  .quote {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-size: medium;
+	font-style: italic;
+	width: 500px;
+	margin: auto;
+	padding-top: 30px;
+  }

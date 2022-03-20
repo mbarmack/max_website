@@ -22,6 +22,16 @@
                 <input class="login-button" type="submit" value="Submit"/>
             </form>
         </div>
+        Add Quote
+        <div class="admin-item">
+            <form action="{{ url_for('add_quote') }}" method="post" enctype="multipart/form-data">
+                Title
+                <input type="text" name="title" required/>
+                Quote
+                <input type="text" name="quote" required/>
+                <input class="login-button" type="submit" value="Submit"/>
+            </form>
+        </div>
         Delete Post
         <div class="admin-item">
             <form action="{{ url_for('delete_post') }}" method="post" enctype="multipart/form-data">

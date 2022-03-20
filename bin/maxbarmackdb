@@ -7,11 +7,15 @@ set -Eeuo pipefail
 
 # Sanity check command line options
 usage() {
-  echo "Usage: $0 (create|destroy|reset|dump)"
+  echo "Usage: $0 (create|destroy|reset|dump|update)"
 }
 
 create() {
     sqlite3 var/insta485.sqlite3 < sql/schema.sql
+}
+
+update() {
+  sqlite3 var/insta485.sqlite3 < sql/quote_citation.sql
 }
 
 destroy() {
@@ -28,6 +32,10 @@ fi
 case $1 in
   "create")
     create
+    ;;
+
+  "update")
+    update
     ;;
 
   "destroy")
