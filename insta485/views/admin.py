@@ -171,3 +171,19 @@ def delete_paragraph():
     )
 
     return flask.redirect(flask.url_for('show_admin'))
+
+@insta485.app.route('/admin/deletecitation/', methods=['POST'])
+def delete_citation():
+    if 'username' not in flask.session:
+        flask.abort(403)
+    if flask.session['username'] != "mbarmack":
+        flask.abort(403)
+
+    connection = insta485.model.get_db()
+    postid = flask.request.form['postid']
+
+    connection.execute(
+        "DELETE FROM citations WHERE postid=?", (postid,)
+    )
+
+    return flask.redirect(flask.url_for('show_admin'))
