@@ -26,7 +26,6 @@ a {
 	width: 800px;
 	margin: auto;
 	padding-left: 125px;
-	padding-top: 120px;
 }
 
 .author {
@@ -243,7 +242,8 @@ a {
 	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: medium;
 	font-style: italic;
-	width: 500px;
+	width: 750px;
 	margin: auto;
 	padding-top: 30px;
+	padding-left: 125px;
   }
