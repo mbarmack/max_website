@@ -42,7 +42,9 @@ def return_post(postid):
         "SELECT paragraph, paragraphid FROM paragraphs WHERE postid=?", (postid,)
     )
     paragraphs = cur.fetchall()
+    print(paragraphs)
 
+    # Get and set quote
     cur = connection.execute(
         "SELECT quote, quoteid FROM quotes WHERE postid=?", (postid,)
     )
@@ -52,6 +54,13 @@ def return_post(postid):
         quote = None
     else:
         quote = quote[0]
+
+    #Get and set citations
+    cur = connection.execute(
+        "SELECT cit, citid FROM citations WHERE postid=?", (postid,)
+    )
+    cits = cur.fetchall()
+    print(cits)
 
     #Get and set comment data
     cur = connection.execute(
@@ -67,11 +76,13 @@ def return_post(postid):
                 comment['logname_owns_this'] = True
             else:
                 comment['logname_owns_this'] = False
+
     if not quote:
         context = {
             "author": post['author'],
             "body": paragraphs,
             "comments": comments,
+            "citations": cits,
             "created": post['created'],
             "logged_in": logged_in,
             "logname": logname,
@@ -84,6 +95,7 @@ def return_post(postid):
             "author": post['author'],
             "body": paragraphs,
             "comments": comments,
+            "citations": cits,
             "created": post['created'],
             "logged_in": logged_in,
             "logname": logname,
@@ -92,7 +104,6 @@ def return_post(postid):
             "title": post['title']
         }
     #Return JSON file
-    print(context['quote'])
     return flask.make_response(flask.jsonify(context), 200)
 
 @insta485.app.route('/api/v1/comments/', methods=['POST'])

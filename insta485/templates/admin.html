@@ -32,6 +32,17 @@
                 <input class="login-button" type="submit" value="Submit"/>
             </form>
         </div>
+        Add Citations
+        Note: Split citations using "\n" character
+        <div class="admin-item">
+            <form action="{{ url_for('add_cit') }}" method="post" enctype="multipart/form-data">
+                Title
+                <input type="text" name="title" required/>
+                Citations
+                <textarea type="text" name="cit" rows="4" cols="50" required></textarea>
+                <input class="login-button" type="submit" value="Submit"/>
+            </form>
+        </div>
         Delete Post
         <div class="admin-item">
             <form action="{{ url_for('delete_post') }}" method="post" enctype="multipart/form-data">

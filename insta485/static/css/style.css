@@ -247,3 +247,16 @@ a {
 	padding-top: 30px;
 	padding-left: 125px;
   }
+
+  .citations {
+	  width: 750px;
+	  margin: auto;
+	  padding-left: 125px;
+	  font-family: Georgia, 'Times New Roman', Times, serif;
+	  font-size: 12px;
+	  padding-bottom: 30px;
+  }
+
+  .cit {
+	  padding-bottom: 5px;
+  }

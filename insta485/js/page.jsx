@@ -8,10 +8,12 @@ class Page extends React.Component {
             author: '',
             body: [],
             comments: [],
+            citations: [],
             created: '',
             isLoaded: false,
             logged_in: false,
             postid: '',
+            quote: '',
             title: ''
         }
         this.handleCreateComment = this.handleCreateComment.bind(this);
@@ -64,6 +66,7 @@ class Page extends React.Component {
                     author: result.author,
                     body: result.body,
                     comments: result.comments,
+                    citations: result.citations,
                     created: result.created,
                     isLoaded: true,
                     logged_in: result.logged_in,
@@ -81,7 +84,7 @@ class Page extends React.Component {
             )
     }
     render() {
-      const {author, body, comments, created, logged_in, quote, title} = this.state
+      const {author, body, comments, citations, created, logged_in, quote, title} = this.state
       const commentList = comments.map((comment) => 
         <Comment
             key={comment.commentid.toString()}
@@ -99,6 +102,14 @@ class Page extends React.Component {
             <p>{paragraph.paragraph}</p>
         </div>
       );
+     
+      const cites = citations.map((cite) => 
+        <div key={cite.citid} className="cit">
+            <p>{cite.cit}</p>
+        </div>
+      );
+      console.log(citations)
+
       if (quote == "") {
         return (
             <div className="post">
@@ -113,6 +124,9 @@ class Page extends React.Component {
                 </div>
                 <div className="body">
                   {paragraphs}
+                </div>
+                <div className="citations">
+                  {cites}
                 </div>
                 <div className="comment-section">
                   <CommentForm
@@ -141,6 +155,9 @@ class Page extends React.Component {
                </div>
                 <div className="body">
                   {paragraphs}
+                </div>
+                <div className="citations">
+                  {cites}
                 </div>
                 <div className="comment-section">
                   <CommentForm
