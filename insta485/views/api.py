@@ -12,6 +12,7 @@ def return_posts():
         FROM posts",
     )
     posts = cur.fetchall()
+    posts.reverse()
 
     context = {
         "posts": posts
