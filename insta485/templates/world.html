@@ -29,6 +29,9 @@
         Using Twitter's API, this page tracks which countries are in the news today
     </div>
     <div class="list">
+        <div class="section-title">
+            Today's Mentions
+        </div>
         <div class="updated">
             Last updated: {{updated}}
         </div>
@@ -41,6 +44,25 @@
                         </span>
                         <span class="country-info">
                             : {{country_data[country]}}
+                        </span>
+                    </li> 
+                </div>
+            {% endfor %}
+        </ol>
+    </div>
+    <div class="list">
+        <div class="section-title">
+            Total Mentions
+        </div>
+        <ol>
+            {% for country in totals %}
+                <div class="list-item">
+                    <li>
+                        <span class="country-link">
+                            <a href="{{ url_for('show_country', country=country) }}">{{country}}</a>
+                        </span>
+                        <span class="country-info">
+                            : {{totals[country]}}
                         </span>
                     </li> 
                 </div>

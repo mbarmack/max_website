@@ -15,8 +15,10 @@ def show_world():
         in_f = json.loads(out_f.read())
         updated = in_f['updated']
         content = in_f['data']
-
     
+    with open('output/out_total.txt', 'r') as total_f:
+        totals = json.loads(total_f.read())
+
     country_data = {}
     for country in content:
         if len(content[country]) > 0:
@@ -32,7 +34,8 @@ def show_world():
     context = {
         'logged_in': logged_in,
         'updated': updated,
-        'country_data': country_data
+        'country_data': country_data,
+        'totals': totals
     }
 
     return flask.render_template('world.html', **context)

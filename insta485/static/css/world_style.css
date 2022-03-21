@@ -49,3 +49,12 @@ a {
     font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: small;
 }
+
+.section-title {
+    margin: auto;
+    width: 200px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: x-large;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}

@@ -29,6 +29,13 @@ def clean_text(text):
 
     return clean_lower
 
+def load_total():
+    total_path = pathlib.Path('output/out_total.txt')
+    with total_path.open('r') as f_in:
+        out_total = json.loads(f_in.read())
+
+    return out_total
+
 
 def load_info():
     """Load info and store in dicts."""
@@ -152,8 +159,19 @@ def main():
 
 
         out_data = {}
+        out_total = load_total()
+
         for country in sort:
             out_data[country[0]] = country[1]
+            num_mentions = len(country[1])
+
+            if num_mentions:
+                if country[0] in out_total:
+                    out_total[country[0]] += num_mentions
+                else:
+                    out_total[country[0]] =  num_mentions
+
+        sorted_total = sorted(out_total.items(), key=lambda x: x[1], reverse=True)
 
         now = datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
@@ -168,6 +186,10 @@ def main():
         with out_path.open('w', encoding='utf-8') as out_file:
             out_file.write(json.dumps(output, indent=2))
         
+        out_tp = pathlib.Path('output/out_total.txt')
+        print(out_total)
+        with out_tp.open('w') as f_out:
+            f_out.write(json.dumps(out_total, indent=2))
         time.sleep(21600)
 
 
