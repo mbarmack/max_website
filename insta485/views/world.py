@@ -18,7 +18,8 @@ def show_world():
     
     with open('output/out_total.txt', 'r') as total_f:
         tot = json.loads(total_f.read())
-        totals = sorted(tot.items(), key=lambda x: x[1], reverse=True)
+        print(tot)
+        totals = dict(sorted(tot.items(), key=lambda x: x[1], reverse=True))
 
     country_data = {}
     for country in content:
