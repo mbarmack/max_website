@@ -62,5 +62,9 @@ a {
 .bar {
     width: var(--bar-value);
     height: 40px;
-    background-color: tomato;
+    background-color: slategray;
+}
+
+.bar-wrap {
+    display: flex;
 }

@@ -54,8 +54,7 @@ def show_world():
     for country in total_data:
         normalized = (total_data[country] - minimum) / (maximum - minimum)
         adjusted = normalized * 600
-        if adjusted > 598:
-            adjusted = 598
+        adjusted -= 60
 
         norm[country] = adjusted
         photo[country] = country + ".jpg"

@@ -66,7 +66,10 @@
                         </span>
                     </li> 
                 </div>
-                <img src="{{ url_for('static', filename=photo[country])}}" width="{{norm[country]}}" height="40">
+                <div class="bar-wrap">
+                    <div class="bar" style="--bar-value:{{norm[country]}}px"></div>
+                    <img src="{{ url_for('static', filename=photo[country])}}" width="60" height="40">
+                </div>
             {% endfor %}
         </ol>
     </div>
