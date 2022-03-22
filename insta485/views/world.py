@@ -42,12 +42,31 @@ def show_world():
         
         total_data[' '.join(capitalized)] = totals[country]
 
+    # Normalize for bar width
+    minimum = 0
+    maximum = max(total_data.values())
+    print(minimum)
+    print(maximum)
+    norm = {}
+    photo = {}
+    for country in total_data:
+        normalized = (total_data[country] - minimum) / (maximum - minimum)
+        adjusted = normalized * 600
+        if adjusted > 598:
+            adjusted = 598
+
+        norm[country] = adjusted
+        photo[country] = country + ".jpg"
+    
+    print(json.dumps(norm, indent=2))
 
     context = {
         'logged_in': logged_in,
         'updated': updated,
         'country_data': country_data,
-        'totals': total_data
+        'totals': total_data,
+        'norm': norm,
+        'photo': photo
     }
 
     return flask.render_template('world.html', **context)

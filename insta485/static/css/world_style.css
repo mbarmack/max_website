@@ -58,3 +58,9 @@ a {
     padding-top: 20px;
     padding-bottom: 10px;
 }
+
+.bar {
+    width: var(--bar-value);
+    height: 40px;
+    background-color: tomato;
+}
