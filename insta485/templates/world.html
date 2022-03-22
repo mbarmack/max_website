@@ -49,7 +49,9 @@
                 </div>
                 <div class="bar-wrap">
                     <div class="bar" style="--bar-value:{{norm[country]}}px"></div>
-                    <img src="{{ url_for('static', filename=photo[country])}}" width="60" height="40">
+                    <div class="flag">
+                        <img src="{{ url_for('static', filename=photo[country])}}" width="60" height="40">
+                    </div>
                 </div>
             {% endfor %}
         </ol>
@@ -72,7 +74,9 @@
                 </div>
                 <div class="bar-wrap">
                     <div class="bar" style="--bar-value:{{total_norm[country]}}px"></div>
-                    <img src="{{ url_for('static', filename=photo[country])}}" width="60" height="40">
+                    <div class="flag">
+                        <img src="{{ url_for('static', filename=photo[country])}}" width="60">
+                    </div>
                 </div>
             {% endfor %}
         </ol>

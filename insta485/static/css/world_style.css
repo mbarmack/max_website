@@ -68,3 +68,15 @@ a {
 .bar-wrap {
     display: flex;
 }
+
+.bar-wrap:hover .bar {
+    transform: scaleY(1.1);
+}
+
+.bar-wrap:hover .flag img{
+    transform: scaleY(1.1);
+}
+
+.flag img {
+    height: 40px;
+}
