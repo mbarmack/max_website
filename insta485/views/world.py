@@ -24,18 +24,30 @@ def show_world():
         if len(content[country]) > 0:
             capitalized = []
             for word in country.split():
-                if word != 'of':
+                if word != 'of' and word != 'the':
                     capitalized.append(word.capitalize())
                 else:
                     capitalized.append(word)
 
             country_data[' '.join(capitalized)] = len(content[country])
+        
+    total_data = {}
+    for country in totals:
+        capitalized = []
+        for word in country.split():
+            if word != 'of' and word != 'the':
+                capitalized.append(word.capitalize())
+            else:
+                capitalized.append(word)
+        
+        total_data[' '.join(capitalized)] = totals[country]
+
 
     context = {
         'logged_in': logged_in,
         'updated': updated,
         'country_data': country_data,
-        'totals': totals
+        'totals': total_data
     }
 
     return flask.render_template('world.html', **context)
