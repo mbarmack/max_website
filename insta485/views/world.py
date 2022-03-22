@@ -4,6 +4,20 @@ import flask
 import insta485
 import json
 
+
+def normalize(data):
+    minimum = 0
+    maximum = max(data.values())
+    norm = {}
+    for country in data:
+        normalized = (data[country] - minimum) / (maximum - minimum)
+        adjusted = normalized * 600
+        adjusted -= 60
+        norm[country] = adjusted
+    
+    return norm
+
+
 @insta485.app.route('/world/', methods=['GET'])
 def show_world():
     """Show world news page."""
@@ -45,28 +59,21 @@ def show_world():
         total_data[' '.join(capitalized)] = totals[country]
 
     # Normalize for bar width
-    minimum = 0
-    maximum = max(total_data.values())
-    print(minimum)
-    print(maximum)
-    norm = {}
+    total_norm = normalize(total_data)
+    norm = normalize(country_data)
+
+    # Generate photo names
     photo = {}
     for country in total_data:
-        normalized = (total_data[country] - minimum) / (maximum - minimum)
-        adjusted = normalized * 600
-        adjusted -= 60
-
-        norm[country] = adjusted
         photo[country] = country + ".jpg"
     
-    print(json.dumps(norm, indent=2))
-
     context = {
         'logged_in': logged_in,
         'updated': updated,
         'country_data': country_data,
         'totals': total_data,
         'norm': norm,
+        'total_norm': total_norm,
         'photo': photo
     }
 
