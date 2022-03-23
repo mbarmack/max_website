@@ -47,12 +47,14 @@
                         </span>
                     </li> 
                 </div>
-                <div class="bar-wrap">
-                    <div class="bar" style="--bar-value:{{norm[country]}}px"></div>
-                    <div class="flag">
-                        <img src="{{ url_for('static', filename=photo[country])}}" width="60" height="40">
+                <a href="{{ url_for('show_country', country=country) }}">
+                    <div class="bar-wrap">
+                        <div class="bar" style="--bar-value:{{norm[country]}}px"></div>
+                        <div class="flag">
+                            <img src="{{ url_for('static', filename=photo[country])}}" width="60" height="40">
+                        </div>
                     </div>
-                </div>
+                </a>
             {% endfor %}
         </ol>
     </div>
@@ -72,12 +74,14 @@
                         </span>
                     </li> 
                 </div>
-                <div class="bar-wrap">
-                    <div class="bar" style="--bar-value:{{total_norm[country]}}px"></div>
-                    <div class="flag">
-                        <img src="{{ url_for('static', filename=photo[country])}}" width="60">
+                <a href="{{ url_for('show_country', country=country) }}">
+                    <div class="bar-wrap">
+                        <div class="bar" style="--bar-value:{{total_norm[country]}}px"></div>
+                        <div class="flag">
+                            <img src="{{ url_for('static', filename=photo[country])}}" width="60">
+                        </div>
                     </div>
-                </div>
+                </a>
             {% endfor %}
         </ol>
     </div>
