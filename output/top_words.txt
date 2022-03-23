@@ -1,0 +1,12 @@
+{
+  "war": 9,
+  "rt": 6,
+  "invasion": 4,
+  "ukraines": 4,
+  "wednesday": 3,
+  "kyiv": 3,
+  "journalist": 3,
+  "forces": 3,
+  "live": 3,
+  "russias": 3
+}

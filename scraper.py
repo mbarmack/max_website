@@ -87,9 +87,7 @@ def query_tweets(author, uid, results, i, last):
     tweets = []
     for tweet_info in response_dict['data']:
         # print(tweet_info['id'])
-        if tweet_info['id'] in last:
-            print("Duplicate Tweet")
-        else:
+        if tweet_info['id'] not in last:
             temp = {
                 "author": author,
                 "id": tweet_info['id'],
@@ -100,6 +98,73 @@ def query_tweets(author, uid, results, i, last):
     results[i] = tweets
 
 
+def deduplicater(tweets):
+    t = []
+    for country in tweets:
+        for tweet in tweets[country]:
+            t.append(tweet)
+    
+    deduplicate = []
+    for tweet in t:
+        dup = False
+        ident = tweet['id']
+        for de in deduplicate:
+            if ident == de['id']:
+                print("DUP")
+                dup = True
+        if not dup:
+            deduplicate.append(tweet)
+        
+    return deduplicate
+
+
+def top_tweets(tweets):
+    sorted_t = sorted(tweets, key=lambda d: d['retweets'], reverse=True)
+    del sorted_t[5:]
+    print(json.dumps(sorted_t, indent=2))
+    out_path = pathlib.Path('output/top_tweets.txt')
+    with out_path.open('w', encoding='utf-8') as out_file:
+        out_file.write(json.dumps(sorted_t, indent=2))
+
+
+def top_words(tweets):
+    # Load in stopwords
+    stop_path = pathlib.Path('stopwords.txt')
+    stopw = []
+    with stop_path.open('r') as stop_in:
+        for word in stop_in.read().split():
+            print(word)
+            stopw.append(word)
+    
+    words = {}
+
+    for tweet in tweets:
+        for word in tweet['text'].split():
+            lower = word.casefold()
+            clean = ''.join(c for c in lower if c.isalnum())
+            if clean != '':
+                not_country = True
+                for country in countries:
+                    for perm in country:
+                        for w in perm:
+                            if clean == w:
+                                not_country = False
+
+                if clean not in stopw and not_country:
+                    if clean in words:
+                        words[clean] += 1
+                    else:
+                        words[clean] = 1
+
+    word_sort = dict(sorted(words.items(), key=lambda x: x[1], reverse=True))
+    final = {}
+    for word in word_sort:
+        if word_sort[word] > 2:
+            final[word] = word_sort[word]
+
+    out_path = pathlib.Path('output/top_words.txt')
+    with out_path.open('w') as f_out:
+        f_out.write(json.dumps(final, indent=2))
 
 
 def country_name_search(tweet):
@@ -176,6 +241,12 @@ def main():
         with out_path.open('w', encoding='utf-8') as out_file:
             out_file.write(json.dumps(last_ids, indent=2))
 
+        deduplicate = deduplicater(tweet_info)
+        # Record top tweets
+        top_tweets(deduplicate)
+
+        # Record top words
+        top_words(deduplicate)
 
         sort = sorted(sorted_countries.items(), key=lambda x: len(x[1]), reverse=True)
 

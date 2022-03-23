@@ -1,0 +1,32 @@
+[
+  {
+    "author": "POTUS",
+    "id": "1506643748880633859",
+    "text": "I\u2019m on my way to Europe to rally the international community in support of Ukraine and ensure Putin pays a severe economic cost for his war of choice. https://t.co/4UJpyitOko",
+    "retweets": 8424
+  },
+  {
+    "author": "BEN_RHODES",
+    "id": "1506716053719564289",
+    "text": "RT @Alexey__Kovalev: And now it's someone I've known for 16 years and worked with at several independent outlets. Oksana Baulina, a Russian\u2026",
+    "retweets": 4595
+  },
+  {
+    "author": "NYT",
+    "id": "1506760213583601671",
+    "text": "RT @trbrtc: We analyzed dozens of battlefield radio transmissions between Russian forces in Ukraine during the initial invasion of Makariv,\u2026",
+    "retweets": 1583
+  },
+  {
+    "author": "POTUS",
+    "id": "1506683512426016769",
+    "text": "RT @BarackObama: .@POTUS\u2019s American Rescue Plan helped strengthen the Affordable Care Act by lowering costs and encouraging a record 14.5 m\u2026",
+    "retweets": 934
+  },
+  {
+    "author": "BBCWORLD",
+    "id": "1506732476865122305",
+    "text": "Russian journalist Oksana Baulina killed while filming destruction caused by Russian shelling in Ukraine https://t.co/w5rxfjF16u",
+    "retweets": 506
+  }
+]

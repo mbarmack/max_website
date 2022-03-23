@@ -3,6 +3,7 @@
 import flask
 import insta485
 import json
+import pathlib
 
 
 def normalize(data):
@@ -66,7 +67,30 @@ def show_world():
     photo = {}
     for country in total_data:
         photo[country] = country + ".jpg"
+
+    # Top tweets
+    top_path = pathlib.Path('output/top_tweets.txt')
+    with top_path.open('r') as f_in:
+        top = json.loads(f_in.read())
+
+    word_path = pathlib.Path('output/top_words.txt')
+    with word_path.open('r') as f_in:
+        top_words = json.loads(f_in.read())
     
+    caps = {}
+    for word in top_words:
+        cap = word.capitalize()
+        caps[cap] = top_words[word]
+
+    minimum = 0
+    maximum = max(caps.values())
+    cap_norm = {}
+    for word in caps:
+        normalized = (caps[word] - minimum) / (maximum - minimum)
+        adjusted = normalized * 50
+        cap_norm[word] = adjusted
+    print(json.dumps(top_words, indent=2))
+
     context = {
         'logged_in': logged_in,
         'updated': updated,
@@ -74,6 +98,8 @@ def show_world():
         'totals': total_data,
         'norm': norm,
         'total_norm': total_norm,
+        'top': top,
+        'top_words': cap_norm,
         'photo': photo
     }
 

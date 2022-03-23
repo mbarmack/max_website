@@ -28,62 +28,104 @@
     <div class="description">
         Using Twitter's API, this page tracks which countries are in the news today
     </div>
-    <div class="list">
-        <div class="section-title">
-            Today's Mentions
-        </div>
-        <div class="updated">
-            Last updated: {{updated}}
-        </div>
-        <ol>
-            {% for country in country_data %}
-                <div class="list-item">
-                    <li>
-                        <span class="country-link">
-                            <a href="{{ url_for('show_country', country=country) }}">{{country}}</a>
-                        </span>
-                        <span class="country-info">
-                            : {{country_data[country]}}
-                        </span>
-                    </li> 
+    <div class="layer">
+        <div class="list">
+            <div class="scroll">
+                <div class="section-title">
+                    Today's Mentions
                 </div>
-                <a href="{{ url_for('show_country', country=country) }}">
-                    <div class="bar-wrap">
-                        <div class="bar" style="--bar-value:{{norm[country]}}px"></div>
-                        <div class="flag">
-                            <img src="{{ url_for('static', filename=photo[country])}}" width="60" height="40">
+                <div class="updated">
+                    Last updated: {{updated}}
+                </div>
+                <ol>
+                    {% for country in country_data %}
+                        <div class="list-item">
+                            <li>
+                                <span class="country-link">
+                                    <a href="{{ url_for('show_country', country=country) }}">{{country}}</a>
+                                </span>
+                                <span class="country-info">
+                                    : {{country_data[country]}}
+                                </span>
+                            </li> 
+                        </div>
+                        <a href="{{ url_for('show_country', country=country) }}">
+                            <div class="bar-wrap">
+                                <div class="bar" style="--bar-value:{{norm[country]}}px"></div>
+                                <div class="flag">
+                                    <img src="{{ url_for('static', filename=photo[country])}}" width="60" height="40">
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+        <div class="list">
+            <div class="scroll">
+                <div class="section-title">
+                    Top Tweets
+                </div>
+                {% for tweet in top %}
+                    <div class="tweet">
+                        <div class="tweet-link">
+                            <a href="https://twitter.com/{{tweet.author}}/status/{{tweet.id}}" target="_blank">{{tweet.author}}</a>:
+                        </div>
+                        <div class="tweet-text">
+                            {{tweet.text}} 
+                        </div>
+                        <div class="tweet-retweets">
+                            Retweets: {{tweet.retweets}}
                         </div>
                     </div>
-                </a>
-            {% endfor %}
-        </ol>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-    <div class="list">
-        <div class="section-title">
-            Total Mentions
-        </div>
-        <ol>
-            {% for country in totals %}
-                <div class="list-item">
-                    <li>
-                        <span class="country-link">
-                            <a href="{{ url_for('show_country', country=country) }}">{{country}}</a>
-                        </span>
-                        <span class="country-info">
-                            : {{totals[country]}}
-                        </span>
-                    </li> 
+    <div class="layer">
+        <div class="list">
+            <div class="scroll">
+                <div class="section-title">
+                    Total Mentions
                 </div>
-                <a href="{{ url_for('show_country', country=country) }}">
-                    <div class="bar-wrap">
-                        <div class="bar" style="--bar-value:{{total_norm[country]}}px"></div>
-                        <div class="flag">
-                            <img src="{{ url_for('static', filename=photo[country])}}" width="60">
+                <ol>
+                    {% for country in totals %}
+                        <div class="list-item">
+                            <li>
+                                <span class="country-link">
+                                    <a href="{{ url_for('show_country', country=country) }}">{{country}}</a>
+                                </span>
+                                <span class="country-info">
+                                    : {{totals[country]}}
+                                </span>
+                            </li> 
                         </div>
-                    </div>
-                </a>
-            {% endfor %}
-        </ol>
+                        <a href="{{ url_for('show_country', country=country) }}">
+                            <div class="bar-wrap">
+                                <div class="bar" style="--bar-value:{{total_norm[country]}}px"></div>
+                                <div class="flag">
+                                    <img src="{{ url_for('static', filename=photo[country])}}" width="60">
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+        <div class="list">
+            <div class="scroll">
+                <div class="section-title">
+                    Words of the Day
+                </div>
+                <div class="word-list">
+                    {% for word in top_words %}
+                        <div class="word" style="--word-value:{{top_words[word]}}px">
+                            {{word}}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
