@@ -62,9 +62,16 @@ def load_info():
             tweet_info[primary_name] = []
             
             countries.append(names)
+    
 
+def load_last():
+    last_path = pathlib.Path('output/last_ids.txt')
+    with last_path.open('r', encoding='utf-8') as f_in:
+        last = json.loads(f_in.read())
+    
+    return last
 
-def query_tweets(author, uid, results, i):
+def query_tweets(author, uid, results, i, last):
     """Query recent tweets from a specific user."""
     # Create API object
     header = {
@@ -79,13 +86,17 @@ def query_tweets(author, uid, results, i):
     response_dict = json.loads(response.text)
     tweets = []
     for tweet_info in response_dict['data']:
-        temp = {
-            "author": author,
-            "id": tweet_info['id'],
-            "text": tweet_info['text'],
-            "retweets": tweet_info['public_metrics']['retweet_count']
-        }
-        tweets.append(temp)
+        # print(tweet_info['id'])
+        if tweet_info['id'] in last:
+            print("Duplicate Tweet")
+        else:
+            temp = {
+                "author": author,
+                "id": tweet_info['id'],
+                "text": tweet_info['text'],
+                "retweets": tweet_info['public_metrics']['retweet_count']
+            }
+            tweets.append(temp)
     results[i] = tweets
 
 
@@ -130,15 +141,15 @@ def main():
     # Load and store UID info
     while True:
         load_info()
-        
+        last = load_last()
+
         results = [None] * len(user_ids)
         threads = [None] * len(user_ids)
 
         for i, ident in enumerate(user_ids.items()):
-            print(f"Querying {ident[0]}.....")
             threads[i] = threading.Thread(
                 target=query_tweets,
-                args=[ident[0], ident[1], results, i]
+                args=[ident[0], ident[1], results, i, last]
             )
             threads[i].start()
         
@@ -154,6 +165,17 @@ def main():
             country_name_search(tweet)
 
         sorted_countries = sort_countries(tweet_info)
+
+        # Record last round of tweets
+        last_ids = []
+        for country in tweet_info:
+            for tweet in tweet_info[country]:
+                last_ids.append(tweet['id'])
+
+        out_path = pathlib.Path('output/last_ids.txt')
+        with out_path.open('w', encoding='utf-8') as out_file:
+            out_file.write(json.dumps(last_ids, indent=2))
+
 
         sort = sorted(sorted_countries.items(), key=lambda x: len(x[1]), reverse=True)
 
@@ -187,7 +209,7 @@ def main():
             out_file.write(json.dumps(output, indent=2))
         
         out_tp = pathlib.Path('output/out_total.txt')
-        print(out_total)
+
         with out_tp.open('w') as f_out:
             f_out.write(json.dumps(out_total, indent=2))
         time.sleep(21600)
