@@ -12,7 +12,7 @@ def normalize(data):
     norm = {}
     for country in data:
         normalized = (data[country] - minimum) / (maximum - minimum)
-        adjusted = normalized * 530
+        adjusted = normalized * 520
         norm[country] = adjusted
     
     return norm
@@ -88,7 +88,6 @@ def show_world():
         normalized = (caps[word] - minimum) / (maximum - minimum)
         adjusted = normalized * 50
         cap_norm[word] = adjusted
-    print(json.dumps(top_words, indent=2))
 
     context = {
         'logged_in': logged_in,

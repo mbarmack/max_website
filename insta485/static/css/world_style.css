@@ -66,6 +66,12 @@ a {
     background-color: black;
 }
 
+.transparent-bar {
+    width: var(--bar-value);
+    height: 2px;
+    margin-top: 19px;
+}
+
 .bar-wrap {
     display: flex;
 }
@@ -126,16 +132,11 @@ a {
     overflow-y: auto;
 }
 
-.word {
-    font-size: var(--word-value);
+.wordcloud {
+    padding-top: 10px;
+    padding-left: 40px;
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
-    color: whitesmoke;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    width: calc(var(--word-value) * 10);
-    background-color: slategray;
 }
 
 

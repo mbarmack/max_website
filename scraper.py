@@ -9,6 +9,8 @@ import json
 import threading
 import time
 from datetime import datetime
+from wordcloud import WordCloud
+import random
 
 BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAAO2gWQEAAAAA74WzZA8ylP4zI5a1Au5eCOxYX0Q%3Dx2bMqbiR1KmFnxhPRtv6oik0rZdwFD0HlZUavjoPzDEiIR00UD'
 
@@ -86,7 +88,6 @@ def query_tweets(author, uid, results, i, last):
     response_dict = json.loads(response.text)
     tweets = []
     for tweet_info in response_dict['data']:
-        # print(tweet_info['id'])
         if tweet_info['id'] not in last:
             temp = {
                 "author": author,
@@ -110,7 +111,6 @@ def deduplicater(tweets):
         ident = tweet['id']
         for de in deduplicate:
             if ident == de['id']:
-                print("DUP")
                 dup = True
         if not dup:
             deduplicate.append(tweet)
@@ -121,10 +121,27 @@ def deduplicater(tweets):
 def top_tweets(tweets):
     sorted_t = sorted(tweets, key=lambda d: d['retweets'], reverse=True)
     del sorted_t[5:]
-    print(json.dumps(sorted_t, indent=2))
     out_path = pathlib.Path('output/top_tweets.txt')
     with out_path.open('w', encoding='utf-8') as out_file:
         out_file.write(json.dumps(sorted_t, indent=2))
+
+def wordcloud(words):
+    string_l = []
+    for word in words:
+        for _ in range(words[word]):
+            string_l.append(word)
+    
+    random.shuffle(string_l)
+
+    string = ' '.join(string_l)
+    print(string)
+
+    wordcloud = WordCloud(width = 550, height = 400,
+                background_color ='whitesmoke',
+                colormap = 'gray',
+                min_font_size = 10).generate(string)
+
+    wordcloud.to_file("insta485/static/wordcloud.png")
 
 
 def top_words(tweets):
@@ -133,14 +150,23 @@ def top_words(tweets):
     stopw = []
     with stop_path.open('r') as stop_in:
         for word in stop_in.read().split():
-            print(word)
             stopw.append(word)
     
     words = {}
 
     for tweet in tweets:
         for word in tweet['text'].split():
-            lower = word.casefold()
+            edit = ""
+            if "’s" in word and "’" != word[0]:
+                edit = word.replace("’s", '')
+            elif "'s" in word and "'" != word[0]:
+                edit = word.replace("'s", '')
+            else:
+                edit = word
+            
+            print(edit)
+
+            lower = edit.casefold()
             clean = ''.join(c for c in lower if c.isalnum())
             if clean != '':
                 not_country = True
@@ -161,6 +187,8 @@ def top_words(tweets):
     for word in word_sort:
         if word_sort[word] > 2:
             final[word] = word_sort[word]
+
+    wordcloud(final)
 
     out_path = pathlib.Path('output/top_words.txt')
     with out_path.open('w') as f_out:

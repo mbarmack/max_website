@@ -53,6 +53,7 @@
                             <div class="bar-wrap">
                                 <div class="bar" style="--bar-value:10px"></div>
                                 <div class="bar" style="--bar-value:{{norm[country]}}px"></div>
+                                <div class="transparent-bar" style="--bar-value:10px"></div>
                                 <div class="flag">
                                     <img src="{{ url_for('static', filename=photo[country])}}" width="60" height="40">
                                 </div>
@@ -105,6 +106,7 @@
                             <div class="bar-wrap">
                                 <div class="bar" style="--bar-value:10px"></div>
                                 <div class="bar" style="--bar-value:{{total_norm[country]}}px"></div>
+                                <div class="transparent-bar" style="--bar-value:10px"></div>
                                 <div class="flag">
                                     <img src="{{ url_for('static', filename=photo[country])}}" width="60">
                                 </div>
@@ -119,13 +121,7 @@
                 <div class="section-title">
                     Words of the Day
                 </div>
-                <div class="word-list">
-                    {% for word in top_words %}
-                        <div class="word" style="--word-value:{{top_words[word]}}px">
-                            {{word}}
-                        </div>
-                    {% endfor %}
-                </div>
+                <img src="{{ url_for('static', filename='wordcloud.png') }}" width="550" class="wordcloud">
             </div>
         </div>
     </div>
