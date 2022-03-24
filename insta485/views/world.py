@@ -12,8 +12,7 @@ def normalize(data):
     norm = {}
     for country in data:
         normalized = (data[country] - minimum) / (maximum - minimum)
-        adjusted = normalized * 600
-        adjusted -= 60
+        adjusted = normalized * 530
         norm[country] = adjusted
     
     return norm
