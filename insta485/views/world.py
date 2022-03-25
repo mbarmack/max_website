@@ -65,7 +65,7 @@ def show_world():
     # Generate photo names
     photo = {}
     for country in total_data:
-        photo[country] = country + ".jpg"
+        photo[country] = "flags/" + country + ".jpg"
 
     # Top tweets
     top_path = pathlib.Path('output/top_tweets.txt')
