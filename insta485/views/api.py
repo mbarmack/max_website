@@ -1,5 +1,8 @@
 import flask
 import insta485
+import pathlib
+import json
+import math
 
 @insta485.app.route('/api/v1/writing/', methods=['GET'])
 def return_posts():
@@ -43,7 +46,6 @@ def return_post(postid):
         "SELECT paragraph, paragraphid FROM paragraphs WHERE postid=?", (postid,)
     )
     paragraphs = cur.fetchall()
-    print(paragraphs)
 
     # Get and set quote
     cur = connection.execute(
@@ -61,7 +63,6 @@ def return_post(postid):
         "SELECT cit, citid FROM citations WHERE postid=?", (postid,)
     )
     cits = cur.fetchall()
-    print(cits)
 
     #Get and set comment data
     cur = connection.execute(
@@ -179,6 +180,40 @@ def get_users():
 
     context = {
         "users": users
+    }
+
+    return flask.make_response(flask.jsonify(context), 200)
+
+@insta485.app.route('/api/v1/map/', methods=['GET'])
+def get_map():
+    map_data = {}
+    map_path = pathlib.Path('output/out.txt')
+    with map_path.open('r') as map_in:
+        map_data = json.loads(map_in.read())
+    
+    lat_lon_path = pathlib.Path('country_lat_lon.txt')
+    lat_lon = {}
+    with lat_lon_path.open('r') as lat_in:
+        for row in lat_in.read().split('\n'):
+            country, lat, lon = row.split('|')
+            lat_lon[country.casefold()] = {
+                'lat': lat,
+                'lon': lon
+            }
+    
+    map_counts = {}
+    
+    for country in map_data['data']:
+        count = len(map_data['data'][country])
+        if count > 0:
+            map_counts[country] = {
+                "count": count + 5,
+                "lat": lat_lon[country]['lat'],
+                "lon": lat_lon[country]['lon']
+            }
+
+    context = {
+        "map_counts": map_counts
     }
 
     return flask.make_response(flask.jsonify(context), 200)

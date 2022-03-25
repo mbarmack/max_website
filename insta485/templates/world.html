@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta charset="UTF-8">
 <head>
 	<title>- Max Barmack</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/world_style.css') }}">
@@ -27,6 +28,18 @@
     </div>
     <div class="description">
         Using Twitter's API, this page tracks which countries are in the news today
+    </div>
+    <div class="map-layer">
+        <div class="map">
+            <!-- Load d3.js -->
+            <script src="https://d3js.org/d3.v6.js"></script>
+    
+            <!-- Load Leaflet -->
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+            <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+            <div id="mapid"></div>
+            <script src="{{ url_for('static', filename='js/map.js')}}"></script>
+        </div>
     </div>
     <div class="layer">
         <div class="list">
@@ -84,7 +97,7 @@
             </div>
         </div>
     </div>
-    <div class="layer">
+    <div class="layer-bottom">
         <div class="list">
             <div class="scroll">
                 <div class="section-title">
