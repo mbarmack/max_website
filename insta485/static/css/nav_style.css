@@ -5,6 +5,8 @@
 	display: flex;
 	justify-content: space-between;
 	padding: 30px 2%;
+	background-color: whitesmoke;
+	z-index: 9999;
 }
 
 .navBar {
