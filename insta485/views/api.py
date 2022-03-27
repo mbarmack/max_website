@@ -205,9 +205,21 @@ def get_map():
     
     for country in map_data['data']:
         count = len(map_data['data'][country])
+        count *= 15000
         if count > 0:
+            name = ""
+            temp = []
+            for word in country.split():
+                if word != 'of' and word != 'the':
+                    temp.append(word.capitalize())
+                else:
+                    temp.append(word)
+                
+            name = ' '.join(temp)
+                
             map_counts[country] = {
-                "count": count + 5,
+                "name": name,
+                "count": count + 50000,
                 "lat": lat_lon[country]['lat'],
                 "lon": lat_lon[country]['lon']
             }
