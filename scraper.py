@@ -10,6 +10,7 @@ import threading
 import time
 from datetime import datetime
 from wordcloud import WordCloud
+from pytz import timezone
 import random
 
 BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAAO2gWQEAAAAA74WzZA8ylP4zI5a1Au5eCOxYX0Q%3Dx2bMqbiR1KmFnxhPRtv6oik0rZdwFD0HlZUavjoPzDEiIR00UD'
@@ -134,7 +135,6 @@ def wordcloud(words):
     random.shuffle(string_l)
 
     string = ' '.join(string_l)
-    print(string)
 
     wordcloud = WordCloud(width = 550, height = 400,
                 background_color ='whitesmoke',
@@ -163,8 +163,6 @@ def top_words(tweets):
                 edit = word.replace("'s", '')
             else:
                 edit = word
-            
-            print(edit)
 
             lower = edit.casefold()
             clean = ''.join(c for c in lower if c.isalnum())
@@ -234,7 +232,9 @@ def main():
     # Load and store UID info
     while True:
         load_info()
-        last = load_last()
+        last_dict = load_last()
+        last = last_dict['ids']
+        last_count = last_dict['collections']
 
         results = [None] * len(user_ids)
         threads = [None] * len(user_ids)
@@ -260,14 +260,22 @@ def main():
         sorted_countries = sort_countries(tweet_info)
 
         # Record last round of tweets
-        last_ids = []
+        if last_count == 10:
+            last_count = 0
+            last = []
+        else:
+            last_count += 1
         for country in tweet_info:
             for tweet in tweet_info[country]:
-                last_ids.append(tweet['id'])
+                last.append(tweet['id'])
 
+        last_dict = {
+            "collections": last_count,
+            "ids": last
+        }
         out_path = pathlib.Path('output/last_ids.txt')
         with out_path.open('w', encoding='utf-8') as out_file:
-            out_file.write(json.dumps(last_ids, indent=2))
+            out_file.write(json.dumps(last_dict, indent=2))
 
         deduplicate = deduplicater(tweet_info)
         # Record top tweets
@@ -294,11 +302,30 @@ def main():
 
         sorted_total = sorted(out_total.items(), key=lambda x: x[1], reverse=True)
 
-        now = datetime.now()
+        now = datetime.now(timezone('US/Eastern'))
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 
+        hour_s = dt_string[11] + dt_string[12]
+        ampm = ""
+        new_h = 0
+        if int(hour_s) == 12:
+            new_h = 12
+            ampm = "PM"
+        elif int(hour_s) > 12:
+            temp = int(hour_s) - 12
+            if temp < 10:
+                new_h = "0" + str(temp)
+            else:
+                new_h = str(temp)
+            ampm = "PM"
+        else:
+            new_h = hour_s
+            ampm = "AM"
+        
+        new_dt_string = dt_string[:11] + str(new_h) + dt_string[13:] + " " + ampm + " EST"
+
         output = {
-            'updated': dt_string,
+            'updated': new_dt_string,
             'data': out_data
         }
 
