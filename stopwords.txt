@@ -160,6 +160,7 @@ former
 formerly
 forth
 four
+friday
 from
 further
 furthermore
@@ -276,6 +277,7 @@ mean
 meanwhile
 merely
 might
+monday
 more
 moreover
 most
@@ -367,9 +369,11 @@ regards
 relatively
 respectively
 right
+rt
 s
 said
 same
+saturday
 saw
 say
 saying
@@ -415,6 +419,7 @@ specifying
 still
 sub
 such
+sunday
 sup
 sure
 t
@@ -464,6 +469,7 @@ through
 throughout
 thru
 thus
+thursday
 to
 together
 too
@@ -475,6 +481,7 @@ tries
 truly
 try
 trying
+tuesday
 twice
 two
 u
@@ -510,6 +517,7 @@ wasnt
 way
 we
 wed
+wednesday
 well
 were
 weve
