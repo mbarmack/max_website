@@ -29,6 +29,12 @@
     <div class="country-title">
         {{country}}
     </div>
+    <div class="graph-wrapper">
+        <div id="reactEntryGraph"></div>
+        <meta id="my-data" data-page="Graph">
+        <script id="react" type="text/javascript" data-page="Graph" data-country="{{country}}" src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+    </div>
+
     {% for tweet in tweets %}
         <div class="tweet">
             <div class="tweet-link">

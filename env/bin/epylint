@@ -1,4 +1,4 @@
-#!/Users/maxwellbarmack/Desktop/Max/Code/max_website/env/bin/python3
+#!/home/mbarmack/Coding/max_website/env/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

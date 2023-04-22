@@ -12,6 +12,7 @@ from datetime import datetime
 from wordcloud import WordCloud
 from pytz import timezone
 import random
+import sqlite3
 
 BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAAO2gWQEAAAAA74WzZA8ylP4zI5a1Au5eCOxYX0Q%3Dx2bMqbiR1KmFnxhPRtv6oik0rZdwFD0HlZUavjoPzDEiIR00UD'
 
@@ -286,9 +287,12 @@ def main():
 
         sort = sorted(sorted_countries.items(), key=lambda x: len(x[1]), reverse=True)
 
-
         out_data = {}
         out_total = load_total()
+
+        now = datetime.now(timezone('US/Eastern'))
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        date = now.strftime("%d/%m/%Y")
 
         for country in sort:
             out_data[country[0]] = country[1]
@@ -300,7 +304,12 @@ def main():
                 else:
                     out_total[country[0]] =  num_mentions
 
-        sorted_total = sorted(out_total.items(), key=lambda x: x[1], reverse=True)
+                conn = sqlite3.connect("var/tweets.db")
+                cursor = conn.cursor()
+
+                cursor.execute("INSERT INTO Tweets (count, country, date) VALUES (?,?,?)", [int(num_mentions), country[0], date])
+                conn.commit()
+                conn.close()
 
         now = datetime.now(timezone('US/Eastern'))
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")

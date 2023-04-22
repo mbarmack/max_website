@@ -7,6 +7,14 @@
 
 const fs = require("fs");
 const path = require("path");
+const {
+	JAVASCRIPT_MODULE_TYPE_AUTO,
+	JSON_MODULE_TYPE,
+	WEBASSEMBLY_MODULE_TYPE_ASYNC,
+	JAVASCRIPT_MODULE_TYPE_ESM,
+	JAVASCRIPT_MODULE_TYPE_DYNAMIC,
+	WEBASSEMBLY_MODULE_TYPE_SYNC
+} = require("../ModuleTypeConstants");
 const Template = require("../Template");
 const { cleverMerge } = require("../util/cleverMerge");
 const {
@@ -16,9 +24,11 @@ const {
 } = require("./target");
 
 /** @typedef {import("../../declarations/WebpackOptions").CacheOptionsNormalized} CacheOptions */
+/** @typedef {import("../../declarations/WebpackOptions").CssExperimentOptions} CssExperimentOptions */
 /** @typedef {import("../../declarations/WebpackOptions").EntryDescription} EntryDescription */
 /** @typedef {import("../../declarations/WebpackOptions").EntryNormalized} Entry */
 /** @typedef {import("../../declarations/WebpackOptions").Experiments} Experiments */
+/** @typedef {import("../../declarations/WebpackOptions").ExperimentsNormalized} ExperimentsNormalized */
 /** @typedef {import("../../declarations/WebpackOptions").ExternalsPresets} ExternalsPresets */
 /** @typedef {import("../../declarations/WebpackOptions").ExternalsType} ExternalsType */
 /** @typedef {import("../../declarations/WebpackOptions").InfrastructureLogging} InfrastructureLogging */
@@ -159,7 +169,13 @@ const applyWebpackOptionsDefaults = options => {
 	D(options, "recordsInputPath", false);
 	D(options, "recordsOutputPath", false);
 
-	applyExperimentsDefaults(options.experiments, { production, development });
+	applyExperimentsDefaults(options.experiments, {
+		production,
+		development,
+		targetProperties
+	});
+
+	const futureDefaults = options.experiments.futureDefaults;
 
 	F(options, "cache", () =>
 		development ? { type: /** @type {"memory"} */ ("memory") } : false
@@ -172,12 +188,18 @@ const applyWebpackOptionsDefaults = options => {
 	});
 	const cache = !!options.cache;
 
-	applySnapshotDefaults(options.snapshot, { production });
+	applySnapshotDefaults(options.snapshot, {
+		production,
+		futureDefaults
+	});
 
 	applyModuleDefaults(options.module, {
 		cache,
 		syncWebAssembly: options.experiments.syncWebAssembly,
-		asyncWebAssembly: options.experiments.asyncWebAssembly
+		asyncWebAssembly: options.experiments.asyncWebAssembly,
+		css: options.experiments.css,
+		futureDefaults,
+		isNode: targetProperties && targetProperties.node === true
 	});
 
 	applyOutputDefaults(options.output, {
@@ -192,7 +214,7 @@ const applyWebpackOptionsDefaults = options => {
 		development,
 		entry: options.entry,
 		module: options.module,
-		futureDefaults: options.experiments.futureDefaults
+		futureDefaults
 	});
 
 	applyExternalsPresetsDefaults(options.externalsPresets, {
@@ -232,6 +254,7 @@ const applyWebpackOptionsDefaults = options => {
 	applyOptimizationDefaults(options.optimization, {
 		development,
 		production,
+		css: options.experiments.css,
 		records: !!(options.recordsInputPath || options.recordsOutputPath)
 	});
 
@@ -252,27 +275,40 @@ const applyWebpackOptionsDefaults = options => {
 };
 
 /**
- * @param {Experiments} experiments options
+ * @param {ExperimentsNormalized} experiments options
  * @param {Object} options options
  * @param {boolean} options.production is production
  * @param {boolean} options.development is development mode
+ * @param {TargetProperties | false} options.targetProperties target properties
  * @returns {void}
  */
-const applyExperimentsDefaults = (experiments, { production, development }) => {
-	D(experiments, "topLevelAwait", false);
-	D(experiments, "syncWebAssembly", false);
-	D(experiments, "asyncWebAssembly", false);
-	D(experiments, "outputModule", false);
-	D(experiments, "asset", false);
-	D(experiments, "layers", false);
-	D(experiments, "lazyCompilation", false);
-	D(experiments, "buildHttp", false);
+const applyExperimentsDefaults = (
+	experiments,
+	{ production, development, targetProperties }
+) => {
 	D(experiments, "futureDefaults", false);
+	D(experiments, "backCompat", !experiments.futureDefaults);
+	D(experiments, "topLevelAwait", experiments.futureDefaults);
+	D(experiments, "syncWebAssembly", false);
+	D(experiments, "asyncWebAssembly", experiments.futureDefaults);
+	D(experiments, "outputModule", false);
+	D(experiments, "layers", false);
+	D(experiments, "lazyCompilation", undefined);
+	D(experiments, "buildHttp", undefined);
 	D(experiments, "cacheUnaffected", experiments.futureDefaults);
+	F(experiments, "css", () => (experiments.futureDefaults ? {} : undefined));
 
 	if (typeof experiments.buildHttp === "object") {
 		D(experiments.buildHttp, "frozen", production);
-		D(experiments.buildHttp, "upgrade", development);
+		D(experiments.buildHttp, "upgrade", false);
+	}
+
+	if (typeof experiments.css === "object") {
+		D(
+			experiments.css,
+			"exportsOnly",
+			!targetProperties || !targetProperties.document
+		);
 	}
 };
 
@@ -348,49 +384,65 @@ const applyCacheDefaults = (
  * @param {SnapshotOptions} snapshot options
  * @param {Object} options options
  * @param {boolean} options.production is production
+ * @param {boolean} options.futureDefaults is future defaults enabled
  * @returns {void}
  */
-const applySnapshotDefaults = (snapshot, { production }) => {
-	A(snapshot, "managedPaths", () => {
-		if (process.versions.pnp === "3") {
-			const match =
-				/^(.+?)[\\/]cache[\\/]watchpack-npm-[^\\/]+\.zip[\\/]node_modules[\\/]/.exec(
+const applySnapshotDefaults = (snapshot, { production, futureDefaults }) => {
+	if (futureDefaults) {
+		F(snapshot, "managedPaths", () =>
+			process.versions.pnp === "3"
+				? [
+						/^(.+?(?:[\\/]\.yarn[\\/]unplugged[\\/][^\\/]+)?[\\/]node_modules[\\/])/
+				  ]
+				: [/^(.+?[\\/]node_modules[\\/])/]
+		);
+		F(snapshot, "immutablePaths", () =>
+			process.versions.pnp === "3"
+				? [/^(.+?[\\/]cache[\\/][^\\/]+\.zip[\\/]node_modules[\\/])/]
+				: []
+		);
+	} else {
+		A(snapshot, "managedPaths", () => {
+			if (process.versions.pnp === "3") {
+				const match =
+					/^(.+?)[\\/]cache[\\/]watchpack-npm-[^\\/]+\.zip[\\/]node_modules[\\/]/.exec(
+						require.resolve("watchpack")
+					);
+				if (match) {
+					return [path.resolve(match[1], "unplugged")];
+				}
+			} else {
+				const match = /^(.+?[\\/]node_modules[\\/])/.exec(
+					// eslint-disable-next-line node/no-extraneous-require
 					require.resolve("watchpack")
 				);
-			if (match) {
-				return [path.resolve(match[1], "unplugged")];
+				if (match) {
+					return [match[1]];
+				}
 			}
-		} else {
-			const match = /^(.+?[\\/]node_modules)[\\/]/.exec(
-				// eslint-disable-next-line node/no-extraneous-require
-				require.resolve("watchpack")
-			);
-			if (match) {
-				return [match[1]];
+			return [];
+		});
+		A(snapshot, "immutablePaths", () => {
+			if (process.versions.pnp === "1") {
+				const match =
+					/^(.+?[\\/]v4)[\\/]npm-watchpack-[^\\/]+-[\da-f]{40}[\\/]node_modules[\\/]/.exec(
+						require.resolve("watchpack")
+					);
+				if (match) {
+					return [match[1]];
+				}
+			} else if (process.versions.pnp === "3") {
+				const match =
+					/^(.+?)[\\/]watchpack-npm-[^\\/]+\.zip[\\/]node_modules[\\/]/.exec(
+						require.resolve("watchpack")
+					);
+				if (match) {
+					return [match[1]];
+				}
 			}
-		}
-		return [];
-	});
-	A(snapshot, "immutablePaths", () => {
-		if (process.versions.pnp === "1") {
-			const match =
-				/^(.+?[\\/]v4)[\\/]npm-watchpack-[^\\/]+-[\da-f]{40}[\\/]node_modules[\\/]/.exec(
-					require.resolve("watchpack")
-				);
-			if (match) {
-				return [match[1]];
-			}
-		} else if (process.versions.pnp === "3") {
-			const match =
-				/^(.+?)[\\/]watchpack-npm-[^\\/]+\.zip[\\/]node_modules[\\/]/.exec(
-					require.resolve("watchpack")
-				);
-			if (match) {
-				return [match[1]];
-			}
-		}
-		return [];
-	});
+			return [];
+		});
+	}
 	F(snapshot, "resolveBuildDependencies", () => ({
 		timestamp: true,
 		hash: true
@@ -406,9 +458,15 @@ const applySnapshotDefaults = (snapshot, { production }) => {
 
 /**
  * @param {JavascriptParserOptions} parserOptions parser options
+ * @param {Object} options options
+ * @param {boolean} options.futureDefaults is future defaults enabled
+ * @param {boolean} options.isNode is node target platform
  * @returns {void}
  */
-const applyJavascriptParserOptionsDefaults = parserOptions => {
+const applyJavascriptParserOptionsDefaults = (
+	parserOptions,
+	{ futureDefaults, isNode }
+) => {
 	D(parserOptions, "unknownContextRequest", ".");
 	D(parserOptions, "unknownContextRegExp", false);
 	D(parserOptions, "unknownContextRecursive", true);
@@ -420,9 +478,13 @@ const applyJavascriptParserOptionsDefaults = parserOptions => {
 	D(parserOptions, "wrappedContextRegExp", /.*/);
 	D(parserOptions, "wrappedContextRecursive", true);
 	D(parserOptions, "wrappedContextCritical", false);
-
-	D(parserOptions, "strictExportPresence", false);
 	D(parserOptions, "strictThisContextOnImports", false);
+	D(parserOptions, "importMeta", true);
+	D(parserOptions, "dynamicImportMode", "lazy");
+	D(parserOptions, "dynamicImportPrefetch", false);
+	D(parserOptions, "dynamicImportPreload", false);
+	D(parserOptions, "createRequire", isNode);
+	if (futureDefaults) D(parserOptions, "exportsPresence", "error");
 };
 
 /**
@@ -431,11 +493,14 @@ const applyJavascriptParserOptionsDefaults = parserOptions => {
  * @param {boolean} options.cache is caching enabled
  * @param {boolean} options.syncWebAssembly is syncWebAssembly enabled
  * @param {boolean} options.asyncWebAssembly is asyncWebAssembly enabled
+ * @param {CssExperimentOptions|false} options.css is css enabled
+ * @param {boolean} options.futureDefaults is future defaults enabled
+ * @param {boolean} options.isNode is node target platform
  * @returns {void}
  */
 const applyModuleDefaults = (
 	module,
-	{ cache, syncWebAssembly, asyncWebAssembly }
+	{ cache, syncWebAssembly, asyncWebAssembly, css, futureDefaults, isNode }
 ) => {
 	if (cache) {
 		D(module, "unsafeCache", module => {
@@ -453,11 +518,14 @@ const applyModuleDefaults = (
 	}
 
 	F(module.parser, "javascript", () => ({}));
-	applyJavascriptParserOptionsDefaults(module.parser.javascript);
+	applyJavascriptParserOptionsDefaults(module.parser.javascript, {
+		futureDefaults,
+		isNode
+	});
 
 	A(module, "defaultRules", () => {
 		const esm = {
-			type: "javascript/esm",
+			type: JAVASCRIPT_MODULE_TYPE_ESM,
 			resolve: {
 				byDependency: {
 					esm: {
@@ -467,21 +535,21 @@ const applyModuleDefaults = (
 			}
 		};
 		const commonjs = {
-			type: "javascript/dynamic"
+			type: JAVASCRIPT_MODULE_TYPE_DYNAMIC
 		};
 		/** @type {RuleSetRules} */
 		const rules = [
 			{
 				mimetype: "application/node",
-				type: "javascript/auto"
+				type: JAVASCRIPT_MODULE_TYPE_AUTO
 			},
 			{
 				test: /\.json$/i,
-				type: "json"
+				type: JSON_MODULE_TYPE
 			},
 			{
 				mimetype: "application/json",
-				type: "json"
+				type: JSON_MODULE_TYPE
 			},
 			{
 				test: /\.mjs$/i,
@@ -514,7 +582,7 @@ const applyModuleDefaults = (
 		];
 		if (asyncWebAssembly) {
 			const wasm = {
-				type: "webassembly/async",
+				type: WEBASSEMBLY_MODULE_TYPE_ASYNC,
 				rules: [
 					{
 						descriptionData: {
@@ -536,7 +604,7 @@ const applyModuleDefaults = (
 			});
 		} else if (syncWebAssembly) {
 			const wasm = {
-				type: "webassembly/sync",
+				type: WEBASSEMBLY_MODULE_TYPE_SYNC,
 				rules: [
 					{
 						descriptionData: {
@@ -557,6 +625,41 @@ const applyModuleDefaults = (
 				...wasm
 			});
 		}
+		if (css) {
+			const cssRule = {
+				type: "css",
+				resolve: {
+					fullySpecified: true,
+					preferRelative: true
+				}
+			};
+			const cssModulesRule = {
+				type: "css/module",
+				resolve: {
+					fullySpecified: true
+				}
+			};
+			rules.push({
+				test: /\.css$/i,
+				oneOf: [
+					{
+						test: /\.module\.css$/i,
+						...cssModulesRule
+					},
+					{
+						...cssRule
+					}
+				]
+			});
+			rules.push({
+				mimetype: "text/css+module",
+				...cssModulesRule
+			});
+			rules.push({
+				mimetype: "text/css",
+				...cssRule
+			});
+		}
 		rules.push(
 			{
 				dependency: "url",
@@ -572,7 +675,7 @@ const applyModuleDefaults = (
 			},
 			{
 				assert: { type: "json" },
-				type: "json"
+				type: JSON_MODULE_TYPE
 			}
 		);
 		return rules;
@@ -628,7 +731,15 @@ const applyOutputDefaults = (
 	};
 
 	F(output, "uniqueName", () => {
-		const libraryName = getLibraryName(output.library);
+		const libraryName = getLibraryName(output.library).replace(
+			/^\[(\\*[\w:]+\\*)\](\.)|(\.)\[(\\*[\w:]+\\*)\](?=\.|$)|\[(\\*[\w:]+\\*)\]/g,
+			(m, a, d1, d2, b, c) => {
+				const content = a || b || c;
+				return content.startsWith("\\") && content.endsWith("\\")
+					? `${d2 || ""}[${content.slice(1, -1)}]${d1 || ""}`
+					: "";
+			}
+		);
 		if (libraryName) return libraryName;
 		const pkgPath = path.resolve(context, "package.json");
 		try {
@@ -661,6 +772,20 @@ const applyOutputDefaults = (
 			return filename.replace(/(^|\/)([^/]*(?:\?|$))/, "$1[id].$2");
 		}
 		return output.module ? "[id].mjs" : "[id].js";
+	});
+	F(output, "cssFilename", () => {
+		const filename = output.filename;
+		if (typeof filename !== "function") {
+			return filename.replace(/\.[mc]?js(\?|$)/, ".css$1");
+		}
+		return "[id].css";
+	});
+	F(output, "cssChunkFilename", () => {
+		const chunkFilename = output.chunkFilename;
+		if (typeof chunkFilename !== "function") {
+			return chunkFilename.replace(/\.[mc]?js(\?|$)/, ".css$1");
+		}
+		return "[id].css";
 	});
 	D(output, "assetModuleFilename", "[hash][ext][query]");
 	D(output, "webassemblyModuleFilename", "[hash].module.wasm");
@@ -714,6 +839,7 @@ const applyOutputDefaults = (
 			"Chunk format can't be selected by default when no target is specified"
 		);
 	});
+	D(output, "asyncChunks", true);
 	F(output, "chunkLoading", () => {
 		if (tp) {
 			switch (output.chunkFormat) {
@@ -798,13 +924,15 @@ const applyOutputDefaults = (
 			? "auto"
 			: ""
 	);
+	D(output, "workerPublicPath", "");
 	D(output, "chunkLoadTimeout", 120000);
 	D(output, "hashFunction", futureDefaults ? "xxhash64" : "md4");
 	D(output, "hashDigest", "hex");
-	D(output, "hashDigestLength", 20);
+	D(output, "hashDigestLength", futureDefaults ? 16 : 20);
 	D(output, "strictModuleExceptionHandling", false);
 
 	const optimistic = v => v || v === undefined;
+	const conditionallyOptimistic = (v, c) => (v === undefined && c) || v;
 	F(
 		output.environment,
 		"arrowFunction",
@@ -818,8 +946,12 @@ const applyOutputDefaults = (
 	);
 	F(output.environment, "forOf", () => tp && optimistic(tp.forOf));
 	F(output.environment, "bigIntLiteral", () => tp && tp.bigIntLiteral);
-	F(output.environment, "dynamicImport", () => tp && tp.dynamicImport);
-	F(output.environment, "module", () => tp && tp.module);
+	F(output.environment, "dynamicImport", () =>
+		conditionallyOptimistic(tp && tp.dynamicImport, output.module)
+	);
+	F(output.environment, "module", () =>
+		conditionallyOptimistic(tp && tp.module, output.module)
+	);
 
 	const { trustedTypes } = output;
 	if (trustedTypes) {
@@ -999,12 +1131,13 @@ const applyPerformanceDefaults = (performance, { production }) => {
  * @param {Object} options options
  * @param {boolean} options.production is production
  * @param {boolean} options.development is development
+ * @param {CssExperimentOptions|false} options.css is css enabled
  * @param {boolean} options.records using records
  * @returns {void}
  */
 const applyOptimizationDefaults = (
 	optimization,
-	{ production, development, records }
+	{ production, development, css, records }
 ) => {
 	D(optimization, "removeAvailableModules", false);
 	D(optimization, "removeEmptyChunks", true);
@@ -1055,7 +1188,9 @@ const applyOptimizationDefaults = (
 	});
 	const { splitChunks } = optimization;
 	if (splitChunks) {
-		A(splitChunks, "defaultSizeTypes", () => ["javascript", "unknown"]);
+		A(splitChunks, "defaultSizeTypes", () =>
+			css ? ["javascript", "css", "unknown"] : ["javascript", "unknown"]
+		);
 		D(splitChunks, "hidePathInfo", production);
 		D(splitChunks, "chunks", "async");
 		D(splitChunks, "usedExports", optimization.usedExports === true);

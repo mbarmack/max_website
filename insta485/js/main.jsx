@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Page from './page';
 import Search from './search';
 import Create from './create';
+import Graph from './graph'
 
 // This method is only called once
 
@@ -18,7 +19,12 @@ if (page === "Writing") {
     <Create/>,
     document.getElementById('reactEntryCreate'),
   );
-}else {
+} else if (page === "Graph") {
+  ReactDOM.render(
+    <Graph/>,
+    document.getElementById('reactEntryGraph'),
+  );
+} else {
   ReactDOM.render(
     <Page/>,
     document.getElementById('reactEntryPost'),
