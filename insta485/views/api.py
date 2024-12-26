@@ -109,7 +109,7 @@ def return_post(postid):
         #Return JSON file
         return flask.make_response(flask.jsonify(context), 200)
     except Exception as e:
-        return flask.make_response(flask.jsonify(e), 500)
+        return flask.make_response(flask.jsonify(e), 200)
 
 @insta485.app.route('/api/v1/comments/', methods=['POST'])
 def create_comment():
