@@ -26,87 +26,90 @@ def return_posts():
 
 @insta485.app.route('/api/v1/writing/<int:postid>/', methods=['GET'])
 def return_post(postid):
-    connection = insta485.model.get_db()
+    try:
+        connection = insta485.model.get_db()
 
-    logged_in = False
-    logname = "none"
-    if 'username' in flask.session:
-        logged_in = True
-        logname = flask.session['username']
-
-
-    #Get and set post data
-    cur = connection.execute(
-        "SELECT * FROM posts WHERE postid=?", (postid,)
-    )
-    post = cur.fetchall()[0]
-
-    #Get and set paragraphs
-    cur = connection.execute(
-        "SELECT paragraph, paragraphid FROM paragraphs WHERE postid=?", (postid,)
-    )
-    paragraphs = cur.fetchall()
-
-    # Get and set quote
-    cur = connection.execute(
-        "SELECT quote, quoteid FROM quotes WHERE postid=?", (postid,)
-    )
-
-    quote = cur.fetchall()
-    if len(quote) is 0:
-        quote = None
-    else:
-        quote = quote[0]
-
-    #Get and set citations
-    cur = connection.execute(
-        "SELECT cit, citid FROM citations WHERE postid=?", (postid,)
-    )
-    cits = cur.fetchall()
-
-    #Get and set comment data
-    cur = connection.execute(
-        "SELECT commentid, owner, author, text, postid \
-         FROM comments WHERE postid=?",
-        (postid,)
-    )
-    comments = cur.fetchall()
-
-    for comment in comments:
+        logged_in = False
+        logname = "none"
         if 'username' in flask.session:
-            if comment['owner'] == flask.session['username']:
-                comment['logname_owns_this'] = True
-            else:
-                comment['logname_owns_this'] = False
-
-    if not quote:
-        context = {
-            "author": post['author'],
-            "body": paragraphs,
-            "comments": comments,
-            "citations": cits,
-            "created": post['created'],
-            "logged_in": logged_in,
-            "logname": logname,
-            "postid": post['postid'],
-            "quote": "",
-            "title": post['title']
-        }
-    else:
-        context = {
-            "author": post['author'],
-            "body": paragraphs,
-            "comments": comments,
-            "citations": cits,
-            "created": post['created'],
-            "logged_in": logged_in,
-            "logname": logname,
-            "postid": post['postid'],
-            "quote": quote['quote'],
-            "title": post['title']
-        }
-    #Return JSON file
-    return flask.make_response(flask.jsonify(context), 200)
+            logged_in = True
+            logname = flask.session['username']
+    
+    
+        #Get and set post data
+        cur = connection.execute(
+            "SELECT * FROM posts WHERE postid=?", (postid,)
+        )
+        post = cur.fetchall()[0]
+    
+        #Get and set paragraphs
+        cur = connection.execute(
+            "SELECT paragraph, paragraphid FROM paragraphs WHERE postid=?", (postid,)
+        )
+        paragraphs = cur.fetchall()
+    
+        # Get and set quote
+        cur = connection.execute(
+            "SELECT quote, quoteid FROM quotes WHERE postid=?", (postid,)
+        )
+    
+        quote = cur.fetchall()
+        if len(quote) is 0:
+            quote = None
+        else:
+            quote = quote[0]
+    
+        #Get and set citations
+        cur = connection.execute(
+            "SELECT cit, citid FROM citations WHERE postid=?", (postid,)
+        )
+        cits = cur.fetchall()
+    
+        #Get and set comment data
+        cur = connection.execute(
+            "SELECT commentid, owner, author, text, postid \
+             FROM comments WHERE postid=?",
+            (postid,)
+        )
+        comments = cur.fetchall()
+    
+        for comment in comments:
+            if 'username' in flask.session:
+                if comment['owner'] == flask.session['username']:
+                    comment['logname_owns_this'] = True
+                else:
+                    comment['logname_owns_this'] = False
+    
+        if not quote:
+            context = {
+                "author": post['author'],
+                "body": paragraphs,
+                "comments": comments,
+                "citations": cits,
+                "created": post['created'],
+                "logged_in": logged_in,
+                "logname": logname,
+                "postid": post['postid'],
+                "quote": "",
+                "title": post['title']
+            }
+        else:
+            context = {
+                "author": post['author'],
+                "body": paragraphs,
+                "comments": comments,
+                "citations": cits,
+                "created": post['created'],
+                "logged_in": logged_in,
+                "logname": logname,
+                "postid": post['postid'],
+                "quote": quote['quote'],
+                "title": post['title']
+            }
+        #Return JSON file
+        return flask.make_response(flask.jsonify(context), 200)
+    except Exception as e:
+        return flask.make_response(flask.jsonify(e), 500)
 
 @insta485.app.route('/api/v1/comments/', methods=['POST'])
 def create_comment():
